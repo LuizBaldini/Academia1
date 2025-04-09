@@ -1,0 +1,97 @@
+﻿@model RegisterViewModel
+
+@{
+    ViewData["Title"] = "Login - Academia Strong Fit";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Academia Strong Fit - Login</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            background-color: #000;
+            color: #FFD700;
+            font-family: 'Segoe UI', sans-serif;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: #111;
+            padding: 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 0 15px #FFD700;
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .form-control {
+            background-color: #222;
+            border: 1px solid #FFD700;
+            color: #FFD700;
+        }
+
+            .form-control::placeholder {
+                color: #aaa;
+            }
+
+        .btn-custom {
+            background-color: #FFD700;
+            color: #000;
+            font-weight: bold;
+            border: none;
+        }
+
+            .btn-custom:hover {
+                background-color: #e6c200;
+            }
+
+        h2 {
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .logo-text {
+            font-size: 2rem;
+            font-weight: bold;
+            color: #FFD700;
+            text-align: center;
+            margin-bottom: 0.5rem;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="logo-text">Academia Strong Fit</div>
+        <h2>Login</h2>
+
+        <form asp-action="Login" method="post">
+            <div class="mb-3">
+                <label asp-for="Email" class="form-label">Email</label>
+                <input asp-for="Email" class="form-control" placeholder="Digite seu email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="mb-3">
+                <label asp-for="Password" class="form-label">Senha</label>
+                <input asp-for="Password" class="form-control" placeholder="Digite sua senha" type="password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn btn-custom w-100">Entrar</button>
+        </form>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
