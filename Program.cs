@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Academia.Models;
+using Academia1.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,9 +15,14 @@ builder.Services.AddDbContext<Context>(options =>
         )));
 
 // Configuração do Identity
-builder.Services.AddIdentity<IdentityUser, IdentityRole>()
+builder.Services.AddIdentity<Usuario, IdentityRole>()
     .AddEntityFrameworkStores<Context>()
     .AddDefaultTokenProviders();
+builder.Services.Configure<IdentityOptions>(options =>
+{
+    options.User.AllowedUserNameCharacters =
+        "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789-._@+ "; // adicione o espaço se quiser
+});
 
 builder.Services.AddControllersWithViews();
 
@@ -26,24 +32,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    var roleManager = services.GetRequiredService<RoleManager<IdentityRole>>();
-    var userManager = services.GetRequiredService<UserManager<IdentityUser>>();
-
-    // Chamamos uma função assíncrona
-    await CreateRolesAsync(roleManager);
-}
-
-async Task CreateRolesAsync(RoleManager<IdentityRole> roleManager)
-{
-    if (!await roleManager.RoleExistsAsync("Personal"))
-    {
-        await roleManager.CreateAsync(new IdentityRole("Personal"));
-    }
-
-    if (!await roleManager.RoleExistsAsync("Aluno"))
-    {
-        await roleManager.CreateAsync(new IdentityRole("Aluno"));
-    }
+    await SeedData.EnsurePopulated(app);
 }
 
 if (!app.Environment.IsDevelopment())

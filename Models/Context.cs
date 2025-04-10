@@ -1,10 +1,10 @@
-﻿using Academia.Models.Academia.Models;
+﻿using Academia1.Models;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace Academia.Models
 {
-    public class Context : IdentityDbContext
+    public class Context : IdentityDbContext<Usuario>
     {
         public Context(DbContextOptions<Context> options)
             : base(options)
@@ -19,6 +19,12 @@ namespace Academia.Models
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            // Configura o Discriminator
+            modelBuilder.Entity<Usuario>()
+                .HasDiscriminator<string>("Tipo")
+                .HasValue<Usuario>("Usuario")
+                .HasValue<Aluno>("Aluno")
+                .HasValue<Personal>("Personal");
 
             // Relacionamento Aluno -> Personal (muitos para um)
             modelBuilder.Entity<Aluno>()
