@@ -1,6 +1,4 @@
-﻿using Academia.Models.Academia.Models;
-
-namespace Academia.Models
+﻿namespace Academia.Models
 {
     public class Exercicio
     {
@@ -8,7 +6,6 @@ namespace Academia.Models
         public string Nome { get; set; }
         public string Categoria { get; set; }
         public string Descricao { get; set; }
-
         public ICollection<Treino> Treinos { get; set; }
     }
 

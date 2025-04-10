@@ -1,70 +1,72 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Academia1.Models;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 
 public class AccountController : Controller
 {
     //declaração dos gerenciadores de usuário, login e regras do identity
-    private readonly UserManager<IdentityUser> _userManager;
-    private readonly SignInManager<IdentityUser> _signInManager;
+    private readonly UserManager<Usuario> _userManager;
+    private readonly SignInManager<Usuario> _signInManager;
     private readonly RoleManager<IdentityRole> _roleManager;
 
+
     //configuração dos gerenciadores
-    public AccountController(
-        UserManager<IdentityUser> userManager,
-        SignInManager<IdentityUser> signInManager,
-        RoleManager<IdentityRole> roleManager)
+    public AccountController(SignInManager<Usuario> signInManager,
+                             UserManager<Usuario> userManager,
+                             RoleManager<IdentityRole> roleManager) // ✅
     {
-        _userManager = userManager;
         _signInManager = signInManager;
+        _userManager = userManager;
         _roleManager = roleManager;
     }
 
-    // Action para exibir a página de registro
-    [HttpGet]
-    public IActionResult Register(string role)
-    {
-        ViewBag.Role = role;
-        return View();
-    }
 
-    // Action para processar o registro (POST)
-    [HttpPost]
-    public async Task<IActionResult> Register(RegisterViewModel model, string role)
-    {
-        if (ModelState.IsValid)
-        {
-            var user = new IdentityUser
-            {
-                UserName = model.Email,
-                Email = model.Email
-            };
+    //// Action para exibir a página de registro
+    //[HttpGet]
+    //public IActionResult Register(string role)
+    //{
+    //    ViewBag.Role = role;
+    //    return View();
+    //}
 
-            var result = await _userManager.CreateAsync(user, model.Password);
-            if (result.Succeeded)
-            {
-                // Adiciona o usuário à role correspondente (Professor ou Aluno)
-                if (!await _roleManager.RoleExistsAsync(role))
-                {
-                    await _roleManager.CreateAsync(new IdentityRole(role));
-                }
+    //// Action para processar o registro (POST)
+    //[HttpPost]
+    //public async Task<IActionResult> Register(RegisterViewModel model, string role)
+    //{
+    //    if (ModelState.IsValid)
+    //    {
+    //        var user = new IdentityUser
+    //        {
+    //            UserName = model.Email,
+    //            Email = model.Email
+    //        };
 
-                await _userManager.AddToRoleAsync(user, role);
+    //        var result = await _userManager.CreateAsync(user, model.Password);
+    //        if (result.Succeeded)
+    //        {
+    //            // Adiciona o usuário à role correspondente (Professor ou Aluno)
+    //            if (!await _roleManager.RoleExistsAsync(role))
+    //            {
+    //                await _roleManager.CreateAsync(new IdentityRole(role));
+    //            }
 
-                // Faz login automático após o registro
-                await _signInManager.SignInAsync(user, isPersistent: false);
-                return RedirectToAction("Index", "Home");
-            }
+    //            await _userManager.AddToRoleAsync(user, role);
 
-            // Exibe os erros caso o registro falhe
-            foreach (var error in result.Errors)
-            {
-                ModelState.AddModelError(string.Empty, error.Description);
-            }
-        }
+    //            // Faz login automático após o registro
+    //            await _signInManager.SignInAsync(user, isPersistent: false);
+    //            return RedirectToAction("Index", "Home");
+    //        }
 
-        ViewBag.Role = role;
-        return View(model);
-    }
+    //        // Exibe os erros caso o registro falhe
+    //        foreach (var error in result.Errors)
+    //        {
+    //            ModelState.AddModelError(string.Empty, error.Description);
+    //        }
+    //    }
+
+    //    ViewBag.Role = role;
+    //    return View(model);
+    //}
 
     [HttpGet]
     public IActionResult Login()
@@ -103,7 +105,7 @@ public class AccountController : Controller
                 }
                 else
                 {
-                    return RedirectToAction("Index", "Home");
+                    return RedirectToAction("Index", "Privacy");
                 }
             }
             else if (result.IsLockedOut)
