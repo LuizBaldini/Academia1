@@ -361,3 +361,8 @@ MigrationBackup/
 
 # Fody - auto-generated XML schema
 FodyWeavers.xsd
+/Migrations/20250409182808_inicial.cs
+/Migrations/20250409182808_inicial.Designer.cs
+/Migrations/20250409191306_identityuseradd.cs
+/Migrations/20250409192038_AddDiscriminatorToAspNetUsers.cs
+/Migrations/ContextModelSnapshot.cs
