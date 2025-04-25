@@ -1,4 +1,4 @@
-namespace Academia.Models
+namespace Academia1.Models
 {
     public class ErrorViewModel
     {

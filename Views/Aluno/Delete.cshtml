@@ -1,0 +1,29 @@
+﻿@model Academia1.Models.Aluno
+
+@{
+    ViewData["Title"] = "Excluir Aluno";
+}
+
+<h2>Confirmar Exclusão</h2>
+
+<h3>Tem certeza que deseja excluir este aluno?</h3>
+<dl class="row">
+    <div class="form-group">
+        <label asp-for="UserName" class="control-label"></label>
+        <input asp-for="UserName" class="form-control" />
+    </div>
+    <dt class="col-sm-2">Email</dt>
+    <dd class="col-sm-10">@Model.Email</dd>
+
+    <dt class="col-sm-2">Nascimento</dt>
+    <dd class="col-sm-10">@Model.Data_Nascimento.ToShortDateString()</dd>
+
+    <dt class="col-sm-2">Instagram</dt>
+    <dd class="col-sm-10">@Model.Instagram</dd>
+</dl>
+
+<form asp-action="Delete">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Excluir</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

@@ -3,7 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Academia1.Models
 {
-    public class Usuario:IdentityUser
+    public class Usuario : IdentityUser
     {
         [Required(ErrorMessage = "A data de nascimento é obrigatória.")]
         [DataType(DataType.Date)]

@@ -1,0 +1,45 @@
+﻿@model IEnumerable<Academia1.Models.Treino>
+
+@{
+    ViewData["Title"] = "Treinos";
+}
+
+<br />
+<br />
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Mensagem"]
+    </div>
+}
+
+<h2>Lista de Treinos</h2>
+
+<div class="mb-3">
+    <a asp-action="Create" class="btn btn-primary">Adicionar Novo Treino</a>
+</div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Nome</th>
+            <th>Descrição</th>
+            <th>Ações</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var treino in Model)
+        {
+            <tr>
+                <td>@treino.NomeTreino</td>
+                <td>@treino.Descricao</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@treino.TreinoID" class="btn btn-sm btn-warning">Editar</a>
+                    <a asp-action="Details" asp-route-id="@treino.TreinoID" class="btn btn-sm btn-info">Detalhes</a>
+                    <a asp-action="Delete" asp-route-id="@treino.TreinoID" class="btn btn-sm btn-danger">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+

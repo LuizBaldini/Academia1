@@ -1,0 +1,55 @@
+﻿@model IEnumerable<Academia1.Models.Exercicio>
+
+@{
+    ViewData["Title"] = "Lista de Exercicios";
+}
+<br />
+<br />
+<h1>Index</h1>
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Mensagem"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Nome)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Categoria)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Descricao)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Nome)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Categoria)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Descricao)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ExercicioID">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ExercicioID">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ExercicioID">Delete</a>
+            </td>
+        </tr>
+}
+    </tbody>
+</table>

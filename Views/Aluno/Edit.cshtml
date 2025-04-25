@@ -1,0 +1,48 @@
+﻿@model Academia1.Models.Aluno
+
+@{
+    ViewData["Title"] = "Editar Aluno";
+}
+
+<h2>Editar Aluno</h2>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <div class="form-group">
+        <label asp-for="UserName" class="control-label"></label>
+        <input asp-for="UserName" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Email"></label>
+        <input asp-for="Email" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Data_Nascimento"></label>
+        <input asp-for="Data_Nascimento" class="form-control" type="date" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Instagram"></label>
+        <input asp-for="Instagram" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="Observacoes"></label>
+        <textarea asp-for="Observacoes" class="form-control"></textarea>
+    </div>
+
+    <div class="form-group">
+        <label>Nova Senha</label>
+        <input name="novaSenha" type="password" class="form-control" />
+    </div>
+
+    <div class="form-group">
+        <label asp-for="PersonalID">Personal</label>
+        <select asp-for="PersonalID" class="form-control" asp-items="ViewBag.Personais"></select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>

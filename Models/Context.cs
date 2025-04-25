@@ -2,7 +2,7 @@
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
-namespace Academia.Models
+namespace Academia1.Models
 {
     public class Context : IdentityDbContext<Usuario>
     {

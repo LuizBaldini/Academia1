@@ -3,7 +3,7 @@ using Academia1.Models;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
-namespace Academia.Models
+namespace Academia1.Models
 {
     public class SeedData
     {
@@ -16,7 +16,6 @@ namespace Academia.Models
 
             context.Database.Migrate();
 
-
             string[] roles = { "Personal", "Aluno" };
             foreach (var role in roles)
             {
@@ -26,9 +25,12 @@ namespace Academia.Models
                 }
             }
 
-            if (!userManager.Users.Any())
+            // Criação de Personal padrão
+            Personal personal = null;
+
+            if (!userManager.Users.OfType<Personal>().Any())
             {
-                var personal = new Personal
+                personal = new Personal
                 {
                     UserName = "Clinton Nogueira Silva",
                     Email = "clintonnogueirasilva@gmail.com",
@@ -36,7 +38,7 @@ namespace Academia.Models
                     PhoneNumber = "3599999-9999",
                     Data_Nascimento = new DateTime(2003, 7, 24),
                     Instagram = "@clinton.silvas",
-                    Observacoes = "Personal padrão crido pelo Seed",
+                    Observacoes = "Personal padrão criado pelo Seed",
                     Especialidade = "Musculação"
                 };
 
@@ -47,107 +49,80 @@ namespace Academia.Models
                     throw new Exception("Erro ao criar o usuário:\n" + erros);
                 }
 
-
                 await userManager.AddToRoleAsync(personal, "Personal");
-            }                   
-
-            if (context.Exercicios.Any() || context.Treinos.Any())
+            }
+            else
             {
-                return; // Já possui dados, não precisa popular novamente
+                personal = await userManager.Users.OfType<Personal>().FirstOrDefaultAsync();
             }
 
-            // Exercícios
-            var ex1 = new Exercicio
+            // Criação de Alunos
+            if (!userManager.Users.OfType<Aluno>().Any())
             {
-                Nome = "Agachamento Livre",
-                Categoria = "Perna",
-                Descricao = "Agachamento com barra livre para trabalhar quadríceps e glúteos"
-            };
+                var nomes = new List<string> { "João", "Maria", "José", "Lucas", "Ana", "Pedro", "Fernanda", "Carlos", "Juliana", "Rafael" };
+                var sobrenomes = new List<string> { "Silva", "Santos", "Oliveira", "Souza", "Costa", "Pereira", "Almeida", "Martins", "Lima", "Rocha" };
 
-            var ex2 = new Exercicio
+                for (int i = 1; i <= 10; i++)
+                {
+                    // Gerando nomes aleatórios para os alunos
+                    var nome = $"{nomes[i % nomes.Count]} {sobrenomes[i % sobrenomes.Count]}";
+
+                    var aluno = new Aluno
+                    {
+                        UserName = nome.ToLower().Replace(" ", ""),
+                        Email = $"{nome.ToLower().Replace(" ", "")}@academia.com",
+                        EmailConfirmed = true,
+                        PhoneNumber = $"359999999{i:D2}",
+                        Data_Nascimento = new DateTime(2000 + i % 5, 1 + (i % 12), 10),
+                        Instagram = $"@aluno{i}",
+                        Observacoes = $"Aluno gerado automaticamente - nº {i}",
+                        PersonalID = personal?.Id
+                    };
+
+                    var result = await userManager.CreateAsync(aluno, $"Aluno@123{i}");
+
+                    if (result.Succeeded)
+                    {
+                        await userManager.AddToRoleAsync(aluno, "Aluno");
+                    }
+                    else
+                    {
+                        var erros = string.Join("\n", result.Errors.Select(e => $"Código: {e.Code} | Descrição: {e.Description}"));
+                        throw new Exception($"Erro ao criar o aluno {i}:\n" + erros);
+                    }
+                }
+            }
+
+            // Criação de Exercícios
+            if (!context.Exercicios.Any())
             {
-                Nome = "Supino Reto",
-                Categoria = "Peito",
-                Descricao = "Supino reto com barra para trabalhar peitoral maior"
-            };
-
-            var ex3 = new Exercicio
-            {
-                Nome = "Remada Curvada",
-                Categoria = "Costas",
-                Descricao = "Exercício para dorsais utilizando barra ou halteres"
-            };
-
-            var ex4 = new Exercicio
-            {
-                Nome = "Tricips Corda",
-                Categoria = "Tricips",
-                Descricao = "Exercício para tricips utilizando a corda no crossover"
-            };
-
-            //// Personais
-            //var p1 = new Personal
-            //{
-            //    Nome = "Carlos Silva",
-            //    Especialidade = "Hipertrofia"
-            //};
-
-            //var p2 = new Personal
-            //{
-            //    Nome = "Juliana Costa",
-            //    Especialidade = "Emagrecimento"
-            //};
-
-            //// Alunos
-            //var a1 = new Aluno
-            //{
-            //    Nome = "Lucas Pereira",
-            //    Data_Nascimento = new DateTime(1998, 5, 21),
-            //    E_mail = "lucas.pereira@gmail.com",
-            //    Instagram = "@lucaspfit",
-            //    Telefone = "(35) 99999-1234",
-            //    Observacoes = "Tem histórico de lesão no joelho",
-            //    Personal = p1
-            //};
-
-            //var a2 = new Aluno
-            //{
-            //    Nome = "Ana Souza",
-            //    Data_Nascimento = new DateTime(2000, 11, 10),
-            //    E_mail = "ana.souza@hotmail.com",
-            //    Instagram = "@anasfit",
-            //    Telefone = "(35) 98888-5678",
-            //    Observacoes = "Objetivo: ganho de massa magra",
-            //    Personal = p2
-            //};
-
-            //// Adiciona Exercícios, Personais e Alunos
-            //context.AddRange(ex1, ex2, ex3, ex4);
-            //context.AddRange(p1, p2);
-            //context.AddRange(a1, a2);
-            //context.SaveChanges();
-
-            //// Treinos com IDs reais
-            //var t1 = new Treino
-            //{
-            //    PersonalID = p1.PersonalID,
-            //    AlunoID = a1.AlunoID,
-            //    Data = new DateTime(2025, 4, 8),
-            //    Hora = new DateTime(2025, 4, 8, 8, 0, 0),
-            //    Exercicios = new List<Exercicio> { ex1, ex2, ex4 }
-            //};
-
-            //var t2 = new Treino
-            //{
-            //    PersonalID = p2.PersonalID,
-            //    AlunoID = a2.AlunoID,
-            //    Data = new DateTime(2025, 4, 9),
-            //    Hora = new DateTime(2025, 4, 9, 17, 30, 0),
-            //    Exercicios = new List<Exercicio> { ex1, ex2, ex3 }
-            //};
-
-            //context.AddRange(t1, t2);
-            //context.SaveChanges();
+                var exercicios = new List<Exercicio>
+                {
+                    new Exercicio { Nome = "Flexão de Braços", Categoria = "Peito", Descricao = "Exercício clássico para trabalhar o peito e tríceps." },
+                    new Exercicio { Nome = "Agachamento", Categoria = "Pernas", Descricao = "Exercício fundamental para o fortalecimento das pernas e glúteos." },
+                    new Exercicio { Nome = "Supino", Categoria = "Peito", Descricao = "Exercício de musculação para trabalhar o peito, ombro e tríceps." },
+                    new Exercicio { Nome = "Puxada na Barra", Categoria = "Costas", Descricao = "Exercício que visa trabalhar os músculos das costas, principalmente o latíssimo do dorso." },
+                    new Exercicio { Nome = "Rosca Direta", Categoria = "Braços", Descricao = "Exercício de musculação focado no bíceps." },
+                    new Exercicio { Nome = "Leg Press", Categoria = "Pernas", Descricao = "Exercício de fortalecimento das pernas e glúteos, realizado em uma máquina." },
+                    new Exercicio { Nome = "Abdominal", Categoria = "Core", Descricao = "Exercício que visa trabalhar a região do abdômen." },
+                    new Exercicio { Nome = "Stiff", Categoria = "Pernas", Descricao = "Exercício que trabalha os músculos posteriores da coxa e glúteos." },
+                    new Exercicio { Nome = "Cadeira Extensora", Categoria = "Pernas", Descricao = "Exercício que foca no fortalecimento do quadríceps." },
+                    new Exercicio { Nome = "Tríceps Pulley", Categoria = "Braços", Descricao = "Exercício de musculação para fortalecer o tríceps." },
+                    new Exercicio { Nome = "Desenvolvimento de Ombros", Categoria = "Ombros", Descricao = "Exercício para trabalhar os músculos dos ombros." },
+                    new Exercicio { Nome = "Deadlift", Categoria = "Costas", Descricao = "Exercício que foca no fortalecimento das costas e posterior de coxa." },
+                    new Exercicio { Nome = "Puxada Frente", Categoria = "Costas", Descricao = "Exercício para trabalhar o latíssimo do dorso com puxada de barra." },
+                    new Exercicio { Nome = "Peck Deck", Categoria = "Peito", Descricao = "Exercício para isolar os músculos do peito." },
+                    new Exercicio { Nome = "Panturrilha em Pé", Categoria = "Pernas", Descricao = "Exercício que trabalha a musculatura da panturrilha." },
+                    new Exercicio { Nome = "Pull-up", Categoria = "Costas", Descricao = "Exercício de puxada para as costas, também trabalha o bíceps." },
+                    new Exercicio { Nome = "Dumbbell Curl", Categoria = "Braços", Descricao = "Exercício de rosca direta utilizando halteres." },
+                    new Exercicio { Nome = "Chest Fly", Categoria = "Peito", Descricao = "Exercício de peito com halteres, trabalhando o peitoral maior." },
+                    new Exercicio { Nome = "Glúteo 4 Apoios", Categoria = "Glúteos", Descricao = "Exercício específico para glúteos e pernas." },
+                    new Exercicio { Nome = "Mergulho", Categoria = "Braços", Descricao = "Exercício para trabalhar tríceps, peitoral e ombros." }
+                };
+                await context.Exercicios.AddRangeAsync(exercicios);
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
+

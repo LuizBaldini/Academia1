@@ -1,8 +1,78 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    Layout = "_LayoutAuth";
+    ViewData["Title"] = "Sobre o Projeto";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<style>
+    body {
+        background-color: #000000;
+        color: #FFD700;
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .full-height {
+        flex: 1;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .card-custom {
+        background-color: #111;
+        border-radius: 20px;
+        border: 2px solid #FFD700;
+    }
+
+    .list-group-item {
+        border: none;
+    }
+</style>
+
+<div class="container-fluid full-height">
+    <div class="row justify-content-center w-100">
+        <div class="col-lg-10">
+            <div class="text-center mb-5">
+                <h2 class="display-4 fw-bold shadow p-3 rounded bg-dark text-warning">
+                    <i class="bi bi-barbell me-2"></i>Projeto Acadêmico - Sistema para Academias
+                </h2>
+                <p class="lead shadow-sm p-3 rounded bg-dark text-light">
+                    Este sistema foi desenvolvido como parte de um projeto acadêmico da <strong>UNIFENAS</strong>.
+                </p>
+                <a href="/Account/Login" class="btn btn-warning btn-lg mt-4 fw-bold shadow">
+                    <i class="bi bi-box-arrow-in-right me-2"></i>Acessar o Sistema
+                </a>
+            </div>
+
+            <div class="card card-custom shadow-lg p-4 text-warning">
+                <div class="card-body">
+                    <h3 class="card-title mb-3"><i class="bi bi-people-fill me-2"></i>Integrantes:</h3>
+                    <ul class="list-unstyled fs-5 ms-3">
+                        <li><i class="bi bi-person me-2"></i>Clinton Nogueira</li>
+                        <li><i class="bi bi-person me-2"></i>Luiz Felipe Baldini</li>
+                    </ul>
+
+                    <h3 class="mt-4"><i class="bi bi-person-badge-fill me-2"></i>Professor Orientador:</h3>
+                    <p class="fs-5 ms-3"><i class="bi bi-person-vcard me-2"></i>Celso Ramos</p>
+
+                    <h3 class="mt-4"><i class="bi bi-tools me-2"></i>Tecnologias Utilizadas:</h3>
+                    <ul class="list-group list-group-flush fs-5">
+                        <li class="list-group-item bg-transparent text-warning">
+                            <i class="bi bi-code-slash me-2"></i>ASP.NET MVC
+                        </li>
+                        <li class="list-group-item bg-transparent text-warning">
+                            <i class="bi bi-person-lock me-2"></i>Identity
+                        </li>
+                        <li class="list-group-item bg-transparent text-warning">
+                            <i class="bi bi-database me-2"></i>Entity Framework (SQL Server)
+                        </li>
+                        <li class="list-group-item bg-transparent text-warning">
+                            <i class="bi bi-bootstrap-fill me-2"></i>Bootstrap
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>

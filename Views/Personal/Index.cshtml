@@ -1,0 +1,44 @@
+﻿@model IEnumerable<Academia1.Models.Personal>
+
+@{
+    ViewData["Title"] = "Lista de Personais";
+}
+<br />
+<br />
+<h1>Lista de Personais</h1>
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Mensagem"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+<p>
+    <a asp-action="Create" class="btn btn-primary">Cadastrar Personal</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Nome de Usuário</th>
+            <th>Email</th>
+            <th>Especialidade</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.UserName</td>
+                <td>@item.Email</td>
+                <td>@item.Especialidade</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

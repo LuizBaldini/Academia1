@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Academia1.Models.Aluno>
+
+@{
+    ViewData["Title"] = "Alunos";
+}
+<br />
+<br />
+<h2>Alunos</h2>
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-warning">
+        @TempData["Mensagem"]
+    </div>
+}
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Novo Aluno</a>
+</p>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Email</th>
+            <th>Data de Nascimento</th>
+            <th>Instagram</th>
+            <th>Personal</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Email</td>
+                <td>@item.Data_Nascimento.ToShortDateString()</td>
+                <td>@item.Instagram</td>
+                <td>@item.Personal?.UserName</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">Detalhes</a>
+                    <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">Editar</a>
+                    <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">Excluir</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

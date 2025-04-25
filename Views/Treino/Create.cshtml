@@ -1,0 +1,87 @@
+﻿@model Academia1.Models.TreinoViewModel;
+
+
+@{
+    ViewData["Title"] = "Criar Treino";
+}
+
+<h2>Criar Treino</h2>
+
+<form asp-action="Create" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <!-- Nome do treino -->
+    <div class="form-group">
+        <label asp-for="Treino.NomeTreino" class="control-label"></label>
+        <input asp-for="Treino.NomeTreino" class="form-control" />
+        <span asp-validation-for="Treino.NomeTreino" class="text-danger"></span>
+    </div>
+
+    <!-- Descrição -->
+    <div class="form-group">
+        <label asp-for="Treino.Descricao" class="control-label"></label>
+        <textarea asp-for="Treino.Descricao" class="form-control"></textarea>
+        <span asp-validation-for="Treino.Descricao" class="text-danger"></span>
+    </div>
+
+    <!-- Data -->
+    <div class="form-group">
+        <label asp-for="Treino.Data" class="control-label"></label>
+        <input asp-for="Treino.Data" type="date" class="form-control" />
+        <span asp-validation-for="Treino.Data" class="text-danger"></span>
+    </div>
+
+    <!-- Hora -->
+    <div class="form-group">
+        <label asp-for="Treino.Hora" class="control-label"></label>
+        <input asp-for="Treino.Hora" type="time" class="form-control" />
+        <span asp-validation-for="Treino.Hora" class="text-danger"></span>
+    </div>
+    <!-- Exercícios -->
+    <div class="form-group">
+        <label>Exercícios</label>
+        <div>
+            @foreach (var exercicio in Model.Exercicios)
+            {
+                <div class="form-check">
+                    <input type="checkbox"
+                           name="ExerciciosSelecionados"
+                           value="@exercicio.ExercicioID"
+                           class="form-check-input"
+                           id="ex_@exercicio.ExercicioID" />
+                    <label class="form-check-label" for="ex_@exercicio.ExercicioID">
+                        @exercicio.Nome
+                    </label>
+                </div>
+            }
+        </div>
+    </div>
+    <!-- Aluno -->
+    <div class="form-group">
+        <label asp-for="Treino.AlunoID" class="control-label">Aluno</label>
+        <select asp-for="Treino.AlunoID" asp-items="Model.Alunos" class="form-control">
+            <option value="">Selecione o aluno</option>
+        </select>
+        <span asp-validation-for="Treino.AlunoID" class="text-danger"></span>
+    </div>
+
+    <!-- Personal -->
+    <div class="form-group">
+        <label asp-for="Treino.PersonalID" class="control-label">Personal</label>
+        <select asp-for="Treino.PersonalID" asp-items="Model.Personais" class="form-control">
+            <option value="">Selecione o personal</option>
+        </select>
+        <span asp-validation-for="Treino.PersonalID" class="text-danger"></span>
+    </div>
+
+
+
+    <button type="submit" class="btn btn-primary">Salvar</button>
+    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+</form>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
