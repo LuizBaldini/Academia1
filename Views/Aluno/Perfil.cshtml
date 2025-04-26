@@ -1,0 +1,37 @@
+﻿@model Academia1.Models.Aluno
+
+@{
+    ViewData["Title"] = "Perfil do Aluno";
+}
+
+<h2>Perfil do Aluno</h2>
+
+<div>
+    <dl class="row">
+        <dt class="col-sm-2">Nome</dt>
+        <dd class="col-sm-10">@Model.UserName</dd>
+
+        <dt class="col-sm-2">Email</dt>
+        <dd class="col-sm-10">@Model.Email</dd>
+
+        <dt class="col-sm-2">Telefone</dt>
+        <dd class="col-sm-10">@Model.PhoneNumber</dd>
+
+        <dt class="col-sm-2">Data de Nascimento</dt>
+        <dd class="col-sm-10">@Model.Data_Nascimento.ToShortDateString()</dd>
+
+        <dt class="col-sm-2">Instagram</dt>
+        <dd class="col-sm-10">@Model.Instagram</dd>
+
+        <dt class="col-sm-2">Observações</dt>
+        <dd class="col-sm-10">@Model.Observacoes</dd>
+
+        <dt class="col-sm-2">Personal Responsável</dt>
+        <dd class="col-sm-10">@Model.Personal?.UserName</dd>
+    </dl>
+</div>
+
+<a asp-action="Editar" class="btn btn-warning">Editar</a>
+
+<a asp-action="Index" class="btn btn-secondary">Voltar</a>
+

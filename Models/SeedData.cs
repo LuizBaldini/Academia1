@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Academia1.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace Academia1.Models
 {
@@ -64,7 +63,6 @@ namespace Academia1.Models
 
                 for (int i = 1; i <= 10; i++)
                 {
-                    // Gerando nomes aleatórios para os alunos
                     var nome = $"{nomes[i % nomes.Count]} {sobrenomes[i % sobrenomes.Count]}";
 
                     var aluno = new Aluno
@@ -122,7 +120,70 @@ namespace Academia1.Models
                 await context.Exercicios.AddRangeAsync(exercicios);
                 await context.SaveChangesAsync();
             }
+
+            // Criação de Treinos por categoria
+            if (!context.Treinos.Any())
+            {
+                var alunos = await context.Users.OfType<Aluno>().ToListAsync();
+                var random = new Random();
+
+                foreach (var aluno in alunos)
+                {
+                    // peito
+                    var treinoPeito = new Treino
+                    {
+                        NomeTreino = $"Treino de Peito - {aluno.UserName}",
+                        Descricao = "Treino focado no peito.",
+                        Data = DateTime.Today.AddDays(random.Next(1, 7)),
+                        Hora = DateTime.Today.AddHours(random.Next(6, 10)).AddMinutes(random.Next(0, 60)),
+                        AlunoID = aluno.Id,
+                        PersonalID = personal.Id,
+                        Exercicios = context.Exercicios.Where(e => e.Categoria == "Peito").OrderBy(x => Guid.NewGuid()).Take(4).ToList()
+                    };
+                    await context.Treinos.AddAsync(treinoPeito);
+
+                    // pernas
+                    var treinoPernas = new Treino
+                    {
+                        NomeTreino = $"Treino de Pernas - {aluno.UserName}",
+                        Descricao = "Treino focado nas pernas.",
+                        Data = DateTime.Today.AddDays(random.Next(1, 7)),
+                        Hora = DateTime.Today.AddHours(random.Next(6, 10)).AddMinutes(random.Next(0, 60)),
+                        AlunoID = aluno.Id,
+                        PersonalID = personal.Id,
+                        Exercicios = context.Exercicios.Where(e => e.Categoria == "Pernas").OrderBy(x => Guid.NewGuid()).Take(4).ToList()
+                    };
+                    await context.Treinos.AddAsync(treinoPernas);
+
+                    // braços
+                    var treinoBracos = new Treino
+                    {
+                        NomeTreino = $"Treino de Braços - {aluno.UserName}",
+                        Descricao = "Treino focado nos braços.",
+                        Data = DateTime.Today.AddDays(random.Next(1, 7)),
+                        Hora = DateTime.Today.AddHours(random.Next(6, 10)).AddMinutes(random.Next(0, 60)),
+                        AlunoID = aluno.Id,
+                        PersonalID = personal.Id,
+                        Exercicios = context.Exercicios.Where(e => e.Categoria == "Braços").OrderBy(x => Guid.NewGuid()).Take(4).ToList()
+                    };
+                    await context.Treinos.AddAsync(treinoBracos);
+
+                    // costas
+                    var treinoCostas = new Treino
+                    {
+                        NomeTreino = $"Treino de Costas - {aluno.UserName}",
+                        Descricao = "Treino focado nas costas.",
+                        Data = DateTime.Today.AddDays(random.Next(1, 7)),
+                        Hora = DateTime.Today.AddHours(random.Next(6, 10)).AddMinutes(random.Next(0, 60)),
+                        AlunoID = aluno.Id,
+                        PersonalID = personal.Id,
+                        Exercicios = context.Exercicios.Where(e => e.Categoria == "Costas").OrderBy(x => Guid.NewGuid()).Take(4).ToList()
+                    };
+                    await context.Treinos.AddAsync(treinoCostas);
+                }
+
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
-
