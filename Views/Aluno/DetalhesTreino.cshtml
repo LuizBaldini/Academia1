@@ -1,0 +1,19 @@
+﻿@model Academia1.Models.Treino
+
+<h2>Detalhes do Treino</h2>
+
+<p><strong>Nome:</strong> @Model.NomeTreino</p>
+<p><strong>Descrição:</strong> @Model.Descricao</p>
+<p><strong>Data:</strong> @Model.Data.ToShortDateString()</p>
+<p><strong>Hora:</strong> @Model.Hora.ToShortTimeString()</p>
+<p><strong>Personal:</strong> @Model.Personal?.UserName</p>
+
+<h4>Exercícios</h4>
+<ul>
+    @foreach (var exercicio in Model.Exercicios)
+    {
+        <li>@exercicio.Nome</li>
+    }
+</ul>
+
+<a asp-action="MeusTreinos">Voltar</a>

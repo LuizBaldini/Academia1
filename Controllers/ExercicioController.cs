@@ -1,9 +1,11 @@
 ﻿using Academia1.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace Academia1.Controllers
 {
+    [Authorize(Roles = "Personal")]
     public class ExercicioController : Controller
     {
         private readonly Context _context;

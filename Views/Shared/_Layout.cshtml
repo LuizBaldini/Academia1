@@ -8,34 +8,69 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Academia.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
+
+    <!-- Bootstrap CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Bootstrap Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
     <header>
-        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm fixed-top">
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow-sm">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Academia</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"
-                        aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <a class="navbar-brand" href="#" onclick="window.location.reload();">Academia Strong Fit</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
 
-                <div class="collapse navbar-collapse" id="navbarNavDropdown">
-                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Index">Home</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-controller="Home" asp-action="Privacy">Privacidade</a>
-                        </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item">
-                            <form asp-controller="Account" asp-action="Logout" method="post">
-                                <button type="submit" class="btn btn-danger">Sair</button>
-                            </form>
-                        </li>
-                    </ul>
+                <div class="collapse navbar-collapse" id="navbarNav">
+                    <ul class="navbar-nav ms-auto">
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            @* Personal navigation *@
+                            @if (User.IsInRole("Personal"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Personal" asp-action="Index"><i class="bi bi-person-circle"></i> Meus alunos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Treino" asp-action="Index"><i class="bi bi-calendar-check"></i> Treinos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Personal" asp-action="AlunosCadastrados"><i class="bi bi-person-bounding-box"></i> Alunos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Exercicio" asp-action="Index"><i class="bi bi-fitness"></i> Exercícios</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Personal" asp-action="Perfil"><i class="bi bi-person-circle"></i> Perfil</a>
+                                </li>
+                            }                            
+                            else
+                            if (User.IsInRole("Aluno"))
+                            {
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Aluno" asp-action="MeusTreinos"><i class="bi bi-journal-text"></i> Meus Treinos</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Aluno" asp-action="Perfil"><i class="bi bi-person-circle"></i> Perfil</a>
+                                </li>
+                            }
 
+                            <li class="nav-item">
+                                <form method="post" asp-controller="Account" asp-action="Logout" class="d-inline">
+                                    <button type="submit" class="nav-link btn btn-link text-light"><i class="bi bi-box-arrow-right"></i> Sair</button>
+                                </form>
+                            </li>
+                        }
+                        else
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Login" asp-action="Index"><i class="bi bi-box-arrow-in-right"></i> Entrar</a>
+                            </li>
+                        }
+                    </ul>
                 </div>
             </div>
         </nav>
@@ -47,18 +82,15 @@
         </main>
     </div>
 
-    <footer class="border-top footer text-muted mt-5">
+    <footer class="footer bg-dark mt-5 py-4">
         <div class="container text-center">
-            &copy; 2025 - Academia1 - <a asp-controller="Home" asp-action="Privacy">Privacidade</a>
+            <p class="text-light">&copy; 2025 - Academia1 | <a asp-controller="Home" asp-action="Privacy" class="text-warning">Privacidade</a></p>
         </div>
     </footer>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
-    <!-- Bootstrap JS Bundle -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-HoA0Qb+U40I8OCcUjzZh3N9DhHMu1U5zF9rM4l+qMd9LgBbvdzwR+4xRKq4tqVXS" crossorigin="anonymous"></script>
-
-    @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

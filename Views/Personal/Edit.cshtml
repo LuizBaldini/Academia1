@@ -1,39 +1,59 @@
 ﻿@model Academia1.Models.Personal
 
 @{
-    ViewData["Title"] = "Editar Personal";
+    var corFundo = "#000000"; // Preto
+    var corBotao = "#FFD700"; // Amarelo
 }
 
-<h2>@ViewData["Title"]</h2>
+<h2 class="text-center text-warning">Editar Perfil</h2>
 
-<form asp-action="Edit">
-    <input type="hidden" asp-for="Id" />
-    <div class="form-group">
-        <label asp-for="UserName" class="control-label"></label>
-        <input asp-for="UserName" class="form-control" />
+<div class="container">
+    <div class="card shadow-lg mb-4" style="border-radius: 10px;">
+        <div class="card-body" style="background-color: #212529; color: white;">
+            <h5 class="card-title text-warning">Informações Pessoais</h5>
+
+            <!-- Formulário de edição -->
+            <form method="post" asp-action="Edit" class="mt-4">
+                <div class="mb-3">
+                    <label for="UserName" class="form-label text-warning">Nome de Usuário</label>
+                    <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Email" class="form-label text-warning">Email</label>
+                    <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Data_Nascimento" class="form-label text-warning">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="Data_Nascimento" name="Data_Nascimento" value="@Model.Data_Nascimento.ToString("yyyy-MM-dd")" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Instagram" class="form-label text-warning">Instagram</label>
+                    <input type="text" class="form-control" id="Instagram" name="Instagram" value="@Model.Instagram" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Especialidade" class="form-label text-warning">Especialidade</label>
+                    <input type="text" class="form-control" id="Especialidade" name="Especialidade" value="@Model.Especialidade" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Observacoes" class="form-label text-warning">Observações</label>
+                    <textarea class="form-control" id="Observacoes" name="Observacoes" rows="3">@Model.Observacoes</textarea>
+                </div>
+
+                <!-- Campo de troca de senha -->
+                <div class="mb-3">
+                    <label for="novaSenha" class="form-label text-warning">Nova Senha (Deixe em branco para manter a atual)</label>
+                    <input type="password" class="form-control" id="novaSenha" name="novaSenha" placeholder="Digite a nova senha" />
+                </div>
+
+                <button type="submit" class="btn" style="background-color: @corBotao; color: black;">
+                    <i class="bi bi-save"></i> Salvar Alterações
+                </button>
+            </form>
+        </div>
     </div>
-    <div class="form-group">
-        <label asp-for="Email" class="control-label"></label>
-        <input asp-for="Email" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Data_Nascimento" class="control-label"></label>
-        <input asp-for="Data_Nascimento" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Instagram" class="control-label"></label>
-        <input asp-for="Instagram" class="form-control" />
-    </div>
-    <div class="form-group">
-        <label asp-for="Observacoes" class="control-label"></label>
-        <textarea asp-for="Observacoes" class="form-control"></textarea>
-    </div>
-    <div class="form-group">
-        <label asp-for="Especialidade" class="control-label"></label>
-        <input asp-for="Especialidade" class="form-control" />
-    </div>
-    <div class="form-group mt-2">
-        <input type="submit" value="Salvar" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-    </div>
-</form>
+</div>

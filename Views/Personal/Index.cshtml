@@ -1,11 +1,8 @@
-﻿@model IEnumerable<Academia1.Models.Personal>
+﻿@model IEnumerable<Academia1.Models.Aluno>
 
 @{
-    ViewData["Title"] = "Lista de Personais";
+    ViewData["Title"] = "Meus Alunos";
 }
-<br />
-<br />
-<h1>Lista de Personais</h1>
 @if (TempData["Mensagem"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -13,32 +10,32 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
 }
-<p>
-    <a asp-action="Create" class="btn btn-primary">Cadastrar Personal</a>
-</p>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Nome de Usuário</th>
-            <th>Email</th>
-            <th>Especialidade</th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>@item.UserName</td>
-                <td>@item.Email</td>
-                <td>@item.Especialidade</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Detalhes</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Excluir</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
+<h2 class="text-warning mb-4">Meus Alunos</h2>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @foreach (var aluno in Model)
+    {
+        <div class="col">
+            <div class="card shadow bg-dark text-white border-warning">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">@aluno.UserName</h5>
+                    <p class="card-text"><strong>Email:</strong> @aluno.Email</p>
+                    <p class="card-text"><strong>Treinos:</strong> @(aluno.Treinos?.Count() ?? 0)</p>
+
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <a asp-action="TreinoAtual" asp-route-id="@aluno.Id" class="btn btn-warning text-dark fw-bold">
+                            <i class="bi bi-clipboard-check-fill"></i> Ver Treino
+                        </a>
+                        <a asp-action="DetailsAluno" asp-route-id="@aluno.Id" class="btn btn-secondary">
+                            <i class="bi bi-info-circle-fill"></i> Detalhes
+                        </a>
+                        <a asp-action="EditAluno" asp-route-id="@aluno.Id" class="btn btn-outline-warning">
+                            <i class="bi bi-pencil-fill"></i> Editar
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

@@ -13,121 +13,75 @@ public class AccountController : Controller
     //configuração dos gerenciadores
     public AccountController(SignInManager<Usuario> signInManager,
                              UserManager<Usuario> userManager,
-                             RoleManager<IdentityRole> roleManager) // ✅
+                             RoleManager<IdentityRole> roleManager) 
     {
         _signInManager = signInManager;
         _userManager = userManager;
         _roleManager = roleManager;
-    }
+    }   
 
-
-    //// Action para exibir a página de registro
-    //[HttpGet]
-    //public IActionResult Register(string role)
-    //{
-    //    ViewBag.Role = role;
-    //    return View();
-    //}
-
-    //// Action para processar o registro (POST)
-    //[HttpPost]
-    //public async Task<IActionResult> Register(RegisterViewModel model, string role)
-    //{
-    //    if (ModelState.IsValid)
-    //    {
-    //        var user = new IdentityUser
-    //        {
-    //            UserName = model.Email,
-    //            Email = model.Email
-    //        };
-
-    //        var result = await _userManager.CreateAsync(user, model.Password);
-    //        if (result.Succeeded)
-    //        {
-    //            // Adiciona o usuário à role correspondente (Professor ou Aluno)
-    //            if (!await _roleManager.RoleExistsAsync(role))
-    //            {
-    //                await _roleManager.CreateAsync(new IdentityRole(role));
-    //            }
-
-    //            await _userManager.AddToRoleAsync(user, role);
-
-    //            // Faz login automático após o registro
-    //            await _signInManager.SignInAsync(user, isPersistent: false);
-    //            return RedirectToAction("Index", "Home");
-    //        }
-
-    //        // Exibe os erros caso o registro falhe
-    //        foreach (var error in result.Errors)
-    //        {
-    //            ModelState.AddModelError(string.Empty, error.Description);
-    //        }
-    //    }
-
-    //    ViewBag.Role = role;
-    //    return View(model);
-    //}
-
+    [HttpGet]
     [HttpGet]
     public IActionResult Login()
     {
+        // Verifica se o usuário já está autenticado
+        if (_signInManager.IsSignedIn(User))
+        {
+            // Redireciona para a página correspondente com base no tipo de usuário (Personal ou Aluno)
+            if (User.IsInRole("Personal"))
+            {
+                return RedirectToAction("Index", "Personal");
+            }
+            else if (User.IsInRole("Aluno"))
+            {
+                return RedirectToAction("Index", "Aluno");
+            }
+            else
+            {
+                return RedirectToAction("Index", "Home");
+            }
+        }
+
         return View();
     }
 
     [HttpPost]
-    public async Task<IActionResult> Login(RegisterViewModel model, string returnUrl = "/Home/Index")
+    public async Task<IActionResult> Login(RegisterViewModel model)
     {
-        // Remover a validação de ConfirmPassword no contexto do login
         ModelState.Remove(nameof(RegisterViewModel.ConfirmPassword));
 
         if (ModelState.IsValid)
         {
-            // Verifique se o usuário existe
             var user = await _userManager.FindByEmailAsync(model.Email);
             if (user == null)
             {
-                Console.WriteLine("Usuário não encontrado.");
                 ModelState.AddModelError(string.Empty, "Usuário ou senha inválidos.");
                 return View(model);
             }
 
-            Console.WriteLine($"Usuário encontrado: {user.UserName}");
-
-            //busca o usuário no banco de dados
             var result = await _signInManager.PasswordSignInAsync(user.UserName, model.Password, isPersistent: false, lockoutOnFailure: false);
             if (result.Succeeded)
             {
-                Console.WriteLine("Login bem-sucedido.");
-                //se o login for bem sucedido
-                if (!string.IsNullOrEmpty(returnUrl) && Url.IsLocalUrl(returnUrl))
+                // Se o login for bem-sucedido, redireciona conforme o tipo de usuário
+                if (user is Personal)
                 {
-                    return Redirect(returnUrl);
+                    return RedirectToAction("Index", "Personal");
                 }
-                else
+                else if (user is Aluno)
                 {
-                    return RedirectToAction("Index", "Privacy");
+                    return RedirectToAction("Index", "Aluno");
                 }
-            }
-            else if (result.IsLockedOut)
-            {
-                Console.WriteLine("Usuário bloqueado.");
-                ModelState.AddModelError(string.Empty, "Conta bloqueada. Tente novamente mais tarde.");
-            }
-            else if (result.RequiresTwoFactor)
-            {
-                Console.WriteLine("Autenticação de dois fatores necessária.");
-                return RedirectToAction("SendCode", new { ReturnUrl = returnUrl });
             }
             else
             {
-                Console.WriteLine("Tentativa de login inválida.");
                 ModelState.AddModelError(string.Empty, "Usuário ou senha inválidos.");
+                return View(model);
             }
         }
 
-
         return View(model);
     }
+
 
     [HttpPost]
     [ValidateAntiForgeryToken]
