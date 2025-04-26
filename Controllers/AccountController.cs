@@ -30,7 +30,7 @@ public class AccountController : Controller
             // Redireciona para a página correspondente com base no tipo de usuário (Personal ou Aluno)
             if (User.IsInRole("Personal"))
             {
-                return RedirectToAction("Index", "Personal");
+                return RedirectToAction("MeusAlunos", "PersonalAluno");
             }
             else if (User.IsInRole("Aluno"))
             {
@@ -65,7 +65,7 @@ public class AccountController : Controller
                 // Se o login for bem-sucedido, redireciona conforme o tipo de usuário
                 if (user is Personal)
                 {
-                    return RedirectToAction("Index", "Personal");
+                    return RedirectToAction("MeusAlunos", "PersonalAluno");
                 }
                 else if (user is Aluno)
                 {

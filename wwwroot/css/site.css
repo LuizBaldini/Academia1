@@ -1,13 +1,24 @@
-/* Navbar hover */
-.navbar-nav .nav-link:hover {
-    background-color: #FFD700; /* Cor amarela da sua paleta */
-    color: #000; /* Texto preto ao passar o mouse */
-    border-radius: 5px;
-    transition: background-color 0.3s ease, color 0.3s ease;
+/* Definindo o corpo da página e o layout */
+html, body {
+    height: 100%;
+    margin: 0;
 }
-/* Footer */
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; /* Garante que o body ocupe toda a altura da tela */
+}
+
+.container {
+    flex: 1; /* Faz o container ocupar o restante do espaço disponível */
+}
+
 .footer {
+    margin-top: auto; /* Faz o rodapé sempre ir para o fundo da página */
+    background-color: #343a40;
     color: #FFD700; /* Cor amarela */
+    text-align: center;
 }
 
     .footer a {
@@ -19,9 +30,3 @@
             color: #fff; /* Cor branca quando passar o mouse */
             text-decoration: underline; /* Sublinha o link ao passar o mouse */
         }
-
-
-
-
-
-

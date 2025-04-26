@@ -19,27 +19,24 @@
     <a asp-action="Create" class="btn btn-primary">Adicionar Novo Treino</a>
 </div>
 
-<table class="table table-striped">
-    <thead>
-        <tr>
-            <th>Nome</th>
-            <th>Descrição</th>
-            <th>Ações</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var treino in Model)
-        {
-            <tr>
-                <td>@treino.NomeTreino</td>
-                <td>@treino.Descricao</td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@treino.TreinoID" class="btn btn-sm btn-warning">Editar</a>
-                    <a asp-action="Details" asp-route-id="@treino.TreinoID" class="btn btn-sm btn-info">Detalhes</a>
-                    <a asp-action="Delete" asp-route-id="@treino.TreinoID" class="btn btn-sm btn-danger">Excluir</a>
-                </td>
-            </tr>
-        }
-    </tbody>
-</table>
-
+<div class="row">
+    @foreach (var treino in Model)
+    {
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <div class="card-header bg-primary text-white">
+                    <h5 class="card-title"><i class="bi bi-calendar-check"></i> @treino.NomeTreino</h5>
+                </div>
+                <div class="card-body">
+                    <p class="card-text">@treino.Descricao</p>
+                    <p><strong>Aluno:</strong> @treino.Aluno?.UserName</p>
+                    <div class="d-flex justify-content-between">
+                        <a asp-action="Details" asp-route-id="@treino.TreinoID" class="btn btn-info btn-sm"><i class="bi bi-info-circle"></i> Detalhes</a>
+                        <a asp-action="Edit" asp-route-id="@treino.TreinoID" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Editar</a>
+                        <a asp-action="Delete" asp-route-id="@treino.TreinoID" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Excluir</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

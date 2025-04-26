@@ -13,6 +13,7 @@
 
 <h2 class="text-warning mb-4">Meus Alunos</h2>
 
+
 <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
     @foreach (var aluno in Model)
     {
@@ -24,7 +25,7 @@
                     <p class="card-text"><strong>Treinos:</strong> @(aluno.Treinos?.Count() ?? 0)</p>
 
                     <div class="d-flex flex-wrap gap-2 mt-3">
-                        <a asp-action="TreinoAtual" asp-route-id="@aluno.Id" class="btn btn-warning text-dark fw-bold">
+                        <a  asp-controller="PersonalAluno"  asp-action="TreinoAtual" asp-route-id="@aluno.Id" class="btn btn-warning text-dark fw-bold">
                             <i class="bi bi-clipboard-check-fill"></i> Ver Treino
                         </a>
                         <a asp-action="DetailsAluno" asp-route-id="@aluno.Id" class="btn btn-secondary">

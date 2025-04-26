@@ -27,18 +27,17 @@
                 <div class="collapse navbar-collapse" id="navbarNav">
                     <ul class="navbar-nav ms-auto">
                         @if (User.Identity.IsAuthenticated)
-                        {
-                            @* Personal navigation *@
+                        {                            
                             @if (User.IsInRole("Personal"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Personal" asp-action="Index"><i class="bi bi-person-circle"></i> Meus alunos</a>
+                                    <a class="nav-link" asp-controller="PersonalAluno" asp-action="MeusAlunos"><i class="bi bi-person-circle"></i> Meus alunos</a>
+                                </li>                                
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="PersonalAluno" asp-action="AlunosCadastrados"><i class="bi bi-person-bounding-box"></i> Alunos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Treino" asp-action="Index"><i class="bi bi-calendar-check"></i> Treinos</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Personal" asp-action="AlunosCadastrados"><i class="bi bi-person-bounding-box"></i> Alunos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Exercicio" asp-action="Index"><i class="bi bi-fitness"></i> Exercícios</a>
@@ -92,5 +91,6 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    @RenderSection("Scripts", required: false)
 </body>
 </html>

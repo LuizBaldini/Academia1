@@ -12,10 +12,6 @@ public class TreinoViewModel
 
     [BindNever]
     [ValidateNever]
-    public IEnumerable<SelectListItem> Personais { get; set; }
-
-    [BindNever]
-    [ValidateNever]
     public List<Exercicio> Exercicios { get; set; }
 
 
