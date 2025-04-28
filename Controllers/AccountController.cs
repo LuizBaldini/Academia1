@@ -84,6 +84,15 @@ public class AccountController : Controller
         return View(model);
     }
 
+    [HttpGet]
+    public async Task<IActionResult> AccessDenied()
+    {
+        await _signInManager.SignOutAsync(); // desloga o usuário
+        TempData["Mensagem"] = "Você não tinha permissão para acessar a página e foi desconectado."; // define mensagem
+        return RedirectToAction("Login", "Account"); // redireciona para o Login
+    }
+
+
 
     [HttpPost]
     [ValidateAntiForgeryToken]

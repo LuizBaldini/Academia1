@@ -51,7 +51,7 @@ namespace Academia1.Controllers
             return View(treino);
         }
 
-        public async Task<IActionResult> Create()
+        public async Task<IActionResult> Create(string id = null)//
         {
             var personalLogado = await _userManager.GetUserAsync(User);
 
@@ -59,11 +59,17 @@ namespace Academia1.Controllers
             {
                 Treino = new Treino
                 {
-                    PersonalID = personalLogado.Id // já seta o PersonalID aqui!
+                    PersonalID = personalLogado.Id,
+                    AlunoID = id // se o id vier, já seta aqui; se não, fica null
                 },
                 Alunos = await _context.Alunos
-                    .Where(a => a.PersonalID == personalLogado.Id) // só alunos desse personal
-                    .Select(a => new SelectListItem { Value = a.Id.ToString(), Text = a.UserName })
+                    .Where(a => a.PersonalID == personalLogado.Id)
+                    .Select(a => new SelectListItem
+                    {
+                        Value = a.Id.ToString(),
+                        Text = a.UserName,
+                        Selected = (id != null && a.Id == id) // marca como selecionado se o id vier
+                    })
                     .ToListAsync(),
                 Exercicios = await _context.Exercicios.ToListAsync()
             };
@@ -71,11 +77,13 @@ namespace Academia1.Controllers
             return View(model);
         }
 
+
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(TreinoViewModel model)
+        [HttpPost]
+        public async Task<IActionResult> Create(TreinoViewModel model, string returnUrl = null)
         {
-            var personalLogado = await _userManager.GetUserAsync(User);            
+            var personalLogado = await _userManager.GetUserAsync(User);
             model.Treino.PersonalID = personalLogado.Id;
             ModelState.Remove("Treino.PersonalID");
 
@@ -87,8 +95,13 @@ namespace Academia1.Controllers
                     .ToList();
 
                 TempData["Mensagem"] = string.Join(" | ", errors);
-                return RedirectToAction("Index");
+
+                if (!string.IsNullOrEmpty(returnUrl))
+                    return Redirect(returnUrl);
+                else
+                    return RedirectToAction("Index");
             }
+
             var treino = model.Treino;
 
             treino.Exercicios = await _context.Exercicios
@@ -98,8 +111,12 @@ namespace Academia1.Controllers
             _context.Treinos.Add(treino);
             await _context.SaveChangesAsync();
 
-            return RedirectToAction(nameof(Index));
+            if (!string.IsNullOrEmpty(returnUrl))
+                return Redirect(returnUrl);
+            else
+                return RedirectToAction(nameof(Index));
         }
+
         public async Task<IActionResult> Edit(int id)
         {
             

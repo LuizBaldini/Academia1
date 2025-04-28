@@ -4,45 +4,58 @@
     ViewData["Title"] = "Editar Aluno";
 }
 
-<h2>Editar Dados do Aluno</h2>
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header" style="background-color: #FFC107; color: #000;">
+            <h4 class="mb-0">Editar Dados do Aluno</h4>
+        </div>
 
-@if (TempData["Mensagem"] != null)
-{
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
-        @TempData["Mensagem"]
-        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        <div class="card-body">            
+
+            <form asp-action="Editar" method="post">
+                @Html.AntiForgeryToken()
+                <input type="hidden" name="PersonalID" value="@Model.PersonalID" />
+
+                <div class="mb-3">
+                    <label for="UserName" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="UserName" name="UserName" value="@Model.UserName" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Nome" class="form-label">Email</label>
+                    <input type="text" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Email" class="form-label">Email</label>
+                    <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Instagram" class="form-label">Instagram</label>
+                    <input type="text" class="form-control" id="Instagram" name="Instagram" value="@Model.Instagram" />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Data_Nascimento" class="form-label">Data de Nascimento</label>
+                    <input type="date" class="form-control" id="Data_Nascimento" name="Data_Nascimento" value="@Model.Data_Nascimento.ToString("yyyy-MM-dd")" required />
+                </div>
+
+                <div class="mb-3">
+                    <label for="Observacoes" class="form-label">Observações</label>
+                    <textarea class="form-control" id="Observacoes" name="Observacoes" rows="4">@Model.Observacoes</textarea>
+                </div>
+
+
+                <div class="text-end">
+                    <button type="submit" class="btn btn-dark me-2">
+                        <i class="bi bi-save"></i> Salvar Alterações
+                    </button>
+                    <a asp-action="Perfil" class="btn btn-secondary">
+                        <i class="bi bi-arrow-left"></i> Voltar
+                    </a>
+                </div>
+            </form>
+        </div>
     </div>
-}
-
-<form asp-action="Editar" method="post">
-    @Html.AntiForgeryToken()
-
-    <div class="mb-3">
-        <label for="Email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
-    </div>
-
-    <div class="mb-3">
-        <label for="PhoneNumber" class="form-label">Telefone</label>
-        <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" required />
-    </div>
-
-    <div class="mb-3">
-        <label for="Instagram" class="form-label">Instagram</label>
-        <input type="text" class="form-control" id="Instagram" name="Instagram" value="@Model.Instagram" />
-    </div>
-
-    <div class="mb-3">
-        <label for="Data_Nascimento" class="form-label">Data de Nascimento</label>
-        <input type="date" class="form-control" id="Data_Nascimento" name="Data_Nascimento" value="@Model.Data_Nascimento.ToString("yyyy-MM-dd")" required />
-    </div>
-
-    <div class="mb-3">
-        <label for="Observacoes" class="form-label">Observações</label>
-        <textarea class="form-control" id="Observacoes" name="Observacoes">@Model.Observacoes</textarea>
-    </div>
-
-    <button type="submit" class="btn btn-warning">Salvar Alterações</button>
-</form>
-
-<a asp-action="Perfil" class="btn btn-secondary mt-3">Voltar</a>
+</div>

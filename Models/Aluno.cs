@@ -2,8 +2,9 @@
 namespace Academia1.Models
 {
     public class Aluno : Usuario
-    {      
+    {
 
+        [Display(Name = "Personal")]
         [Required(ErrorMessage = "Selecione um Personal")]
         public string PersonalID { get; set; }
 

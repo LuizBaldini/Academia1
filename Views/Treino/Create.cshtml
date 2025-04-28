@@ -10,6 +10,7 @@
     <div class="card-body">
         <form asp-action="Create" method="post">
             <div asp-validation-summary="ModelOnly" class="text-danger mb-3"></div>
+            <input type="hidden" name="returnUrl" value="@Context.Request.Headers["Referer"]" />
 
             <!-- Aluno -->
             <div class="mb-3">

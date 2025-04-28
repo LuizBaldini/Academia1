@@ -13,8 +13,6 @@ namespace Academia1.Models
             var roleManager = scope.ServiceProvider.GetRequiredService<RoleManager<IdentityRole>>();
             var userManager = scope.ServiceProvider.GetRequiredService<UserManager<Usuario>>();
 
-            context.Database.Migrate();
-
             string[] roles = { "Personal", "Aluno" };
             foreach (var role in roles)
             {
@@ -23,6 +21,10 @@ namespace Academia1.Models
                     await roleManager.CreateAsync(new IdentityRole(role));
                 }
             }
+
+            context.Database.Migrate();
+
+            
 
             // Criação de Personal padrão
             Personal personal = null;

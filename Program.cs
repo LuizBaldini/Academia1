@@ -25,6 +25,11 @@ builder.Services.Configure<IdentityOptions>(options =>
 });
 
 builder.Services.AddControllersWithViews();
+// Configurar o caminho da página de acesso negado
+builder.Services.ConfigureApplicationCookie(options =>
+{
+    options.AccessDeniedPath = "/Account/AccessDenied"; // <-- aqui define para onde vai quando acesso é negado
+});
 
 var app = builder.Build();
 
@@ -32,7 +37,7 @@ var app = builder.Build();
 using (var scope = app.Services.CreateScope())
 {
     var services = scope.ServiceProvider;
-    await SeedData.EnsurePopulated(app);
+    //await SeedData.EnsurePopulated(app);
 }
 
 if (!app.Environment.IsDevelopment())
@@ -40,6 +45,7 @@ if (!app.Environment.IsDevelopment())
     app.UseExceptionHandler("/Home/Error");
     app.UseHsts();
 }
+
 
 app.UseHttpsRedirection();
 app.UseStaticFiles();

@@ -1,19 +1,63 @@
 ﻿@model Academia1.Models.Treino
 
-<h2>Detalhes do Treino</h2>
+<div class="container mt-4">
+    <div class="card shadow">
+        <div class="card-header" style="background-color: #FFC107; color: #000;">
+            <h4 class="mb-0">Detalhes do Treino</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Nome do Treino:</dt>
+                <dd class="col-sm-9">@Model.NomeTreino</dd>
 
-<p><strong>Nome:</strong> @Model.NomeTreino</p>
-<p><strong>Descrição:</strong> @Model.Descricao</p>
-<p><strong>Data:</strong> @Model.Data.ToShortDateString()</p>
-<p><strong>Hora:</strong> @Model.Hora.ToShortTimeString()</p>
-<p><strong>Personal:</strong> @Model.Personal?.UserName</p>
+                <dt class="col-sm-3">Descrição:</dt>
+                <dd class="col-sm-9">@Model.Descricao</dd>
 
-<h4>Exercícios</h4>
-<ul>
-    @foreach (var exercicio in Model.Exercicios)
-    {
-        <li>@exercicio.Nome</li>
-    }
-</ul>
+                <dt class="col-sm-3">Data:</dt>
+                <dd class="col-sm-9">@Model.Data.ToShortDateString()</dd>
 
-<a asp-action="Index" class="btn btn-secondary">Voltar</a>
+                <dt class="col-sm-3">Hora:</dt>
+                <dd class="col-sm-9">@Model.Hora.ToShortTimeString()</dd>
+
+                <dt class="col-sm-3">Personal:</dt>
+                <dd class="col-sm-9">@Model.Personal?.UserName</dd>
+            </dl>
+
+            <hr />
+
+            <h5 class="mt-4" style="color: #FFC107;">Exercícios</h5>
+
+            @if (Model.Exercicios != null && Model.Exercicios.Any())
+            {
+                <div class="row">
+                    @foreach (var exercicio in Model.Exercicios)
+                    {
+                        <div class="col-md-4 mb-3">
+                            <div class="card h-100 shadow" style="background-color: #000; color: #FFC107;">
+                                <div class="card-body">
+                                    <h5 class="card-title">@exercicio.Nome</h5>
+                                    <p class="card-text">
+                                        <strong>Descrição:</strong> @exercicio.Descricao <br />
+                                        <strong>Categoria:</strong> @exercicio.Categoria
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning" role="alert">
+                    Nenhum exercício cadastrado para este treino.
+                </div>
+            }
+        </div>
+
+        <div class="card-footer text-end" style="background-color: #FFC107;">
+            <a asp-action="Index" class="btn btn-dark">
+                <i class="bi bi-arrow-left"></i> Voltar
+            </a>
+        </div>
+    </div>
+</div>
