@@ -5,6 +5,14 @@
 }
 
 <h2 class="text-warning mb-4">@ViewData["Title"]</h2>
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-warning alert-dismissible fade show" role="alert">
+        @TempData["Mensagem"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+    </div>
+}
+
 
 <form asp-action="Create">
     <div class="form-group">
@@ -37,6 +45,6 @@
     </div>
     <div class="form-group mt-2">
         <input type="submit" value="Salvar" class="btn btn-primary" />
-        <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+        <a asp-action="PersonaisAcademia" class="btn btn-secondary">Cancelar</a>
     </div>
 </form>

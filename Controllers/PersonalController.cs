@@ -38,9 +38,6 @@ namespace Academia1.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(Personal personal, string senha)
         {
-            if (!ModelState.IsValid)
-                return View(personal);
-
             try
             {
                 var result = await _userManager.CreateAsync(personal, senha);
@@ -50,7 +47,7 @@ namespace Academia1.Controllers
                     // Adiciona o usuário à role "Aluno"
                     await _userManager.AddToRoleAsync(personal, "Personal");
                     TempData["Mensagem"] = "Personal cadastrado com sucesso";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PersonaisAcademia");
                 }
 
                 foreach (var error in result.Errors)
