@@ -36,6 +36,22 @@ namespace Academia1.Controllers
             return View(alunos);
         }
 
+        public async Task<IActionResult> TreinosAtuais(string id)
+        {
+            var aluno = await _context.Alunos
+                .Include(a => a.Treinos)
+                    .ThenInclude(t => t.Exercicios)
+                .FirstOrDefaultAsync(a => a.Id == id);
+
+            if (aluno == null)
+            {
+                return NotFound();
+            }
+
+            return View(aluno);
+        }
+
+
         public async Task<IActionResult> AlunosCadastrados()
         {
             var alunos = await _userManager.Users.OfType<Aluno>().Include(a => a.Personal).ToListAsync();                

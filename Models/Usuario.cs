@@ -13,6 +13,7 @@ namespace Academia1.Models
         [StringLength(100, ErrorMessage = "O Instagram deve ter no máximo 100 caracteres.")]
         public string Instagram { get; set; }
 
+        [Required(ErrorMessage = "Observações são obrigatórias.")]
         [StringLength(1000, ErrorMessage = "As observações devem ter no máximo 1000 caracteres.")]
         public string Observacoes { get; set; }
     }

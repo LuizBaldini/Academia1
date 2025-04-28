@@ -1,0 +1,65 @@
+﻿@model Academia1.Models.Aluno
+
+@{
+    ViewData["Title"] = "Treinos Atuais";
+}
+
+<div class="container">
+    @if(!Model.Treinos.Any())
+    {
+        <h3 class="text-warning mb-4">Aluno ainda não tem treinos cadastrados Atuais</h3>
+        <a asp-controller="Treino" asp-action="Create" class="btn btn-warning mb-3"><i class="bi bi-plus-circle"></i> Adicionar Novo Treino</a>
+    }
+    else{
+        <div class="card mb-4" style="background-color: #2c2f33; color: #fff;">
+            <div class="card-body">
+                <h3 class="card-title text-warning">Informações do Aluno</h3>
+                <p class="card-text">
+                    <strong>Nome:</strong> <span class="text-light">@Model.UserName</span><br />
+                    <strong>Email:</strong> <span class="text-light">@Model.Email</span><br />
+                    <strong>Telefone:</strong> <span class="text-light">@Model.PhoneNumber</span>
+                </p>
+            </div>
+        </div>
+
+
+        @foreach (var treino in Model.Treinos)
+        {
+            <div class="card mb-3" style="background-color: #2c2f33; color: #fff;">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">@treino.NomeTreino</h5>
+                    <h6 class="card-subtitle mb-2 text-muted">@treino.Descricao</h6>
+                    <p class="card-text">@treino.Descricao</p>
+                    <div class="d-flex justify-content-between">
+                        <a asp-controller="Treino" asp-action="Edit" asp-route-id="@treino.TreinoID" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Editar</a>
+                        <a asp-controller="Treino" asp-action="Delete" asp-route-id="@treino.TreinoID" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Excluir</a>
+                        <!-- Botão para abrir o popup de exercícios -->
+                        <button class="btn btn-warning" data-bs-toggle="collapse" data-bs-target="@($"#collapseExercicios{treino.TreinoID}")" aria-expanded="false" aria-controls="@($"collapseExercicios{treino.TreinoID}")">
+                            Ver Exercícios
+                        </button>
+                    </div>
+
+
+
+                    <!-- Collapsible lista de exercícios -->
+                    <div class="collapse mt-3" id="@($"collapseExercicios{treino.TreinoID}")">
+                        <ul class="list-group">
+                            @foreach (var exercicio in treino.Exercicios)
+                            {
+                                <li class="list-group-item" style="background-color: #1c1c1c; color: #fff;">
+                                    <strong>@exercicio.Nome</strong> - @exercicio.Descricao
+                                </li>
+                            }
+                        </ul>
+                    </div>
+
+
+                </div>
+            </div>
+        }
+    }
+</div>
+
+@section Scripts {
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+}

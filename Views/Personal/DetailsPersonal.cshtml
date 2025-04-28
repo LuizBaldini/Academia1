@@ -1,0 +1,35 @@
+﻿@model Academia1.Models.Personal
+
+@{
+    ViewData["Title"] = "Detalhes do Personal";
+}
+
+<h2 class="text-warning mb-4">Detalhes do Personal</h2>
+
+<div class="card mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="card-title"><i class="bi bi-person-circle"></i> @Model.UserName</h5>
+    </div>
+    <div class="card-body">
+        <p><strong>Email:</strong> @Model.Email</p>
+        <p><strong>Telefone:</strong> @Model.PhoneNumber</p>
+
+        <h5 class="mt-4">Alunos Associados</h5>
+        @if (Model.Alunos != null && Model.Alunos.Any())
+        {
+            <ul>
+                @foreach (var aluno in Model.Alunos)
+                {
+                    <li>@aluno.UserName</li> 
+                }
+            </ul>
+        }
+        else
+        {
+            <p>Este personal não tem alunos associados.</p>
+        }
+    </div>
+    <div class="card-footer text-right">
+        <a asp-action="PersonaisAcademia" class="btn btn-secondary"><i class="bi bi-arrow-left-circle"></i> Voltar</a>
+    </div>
+</div>

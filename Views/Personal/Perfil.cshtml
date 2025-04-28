@@ -1,18 +1,17 @@
 ﻿@model Academia1.Models.Personal
 
 @{
-    var corFundo = "#000000"; // Preto
-    var corBotao = "#FFD700"; // Amarelo
+    ViewData["Title"] = "Meu perfil";
 }
 
-<h2 class="text-center text-warning mb-4">Meu Perfil</h2>
+<h2 class="text-warning mb-4">Meu Perfil</h2>
 
 <div class="container">
     <div class="card shadow-lg mb-4" style="border-radius: 10px;">
         <div class="card-body" style="background-color: #212529; color: white;">
             <h5 class="card-title text-warning">Informações Pessoais</h5>
 
-            <!-- Exibição das informações pessoais -->
+            
             <ul class="list-group list-group-flush">
                 <li class="list-group-item" style="background-color: #212529; color: white;">
                     <strong>Nome de Usuário:</strong> @Model.UserName
@@ -36,10 +35,9 @@
 
             <!-- Botões para editar e excluir o perfil -->
             <div class="mt-4 text-center">
-                <!-- Botão Editar Perfil -->
-                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn" style="background-color: @corBotao; color: black; width: 200px; margin-right: 10px;">
-                    <i class="bi bi-pencil"></i> Editar Perfil
-                </a>
+
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning"><i class="bi bi-plus-circle"></i> Editar Perfil</a>
+               
 
                 <!-- Botão Excluir Perfil -->
                 <a asp-action="Delete" asp-route-id="@Model.Id" class="btn btn-danger" style="width: 200px;">

@@ -4,8 +4,6 @@
     ViewData["Title"] = "Treinos";
 }
 
-<br />
-<br />
 @if (TempData["Mensagem"] != null)
 {
     <div class="alert alert-danger">
@@ -13,10 +11,10 @@
     </div>
 }
 
-<h2>Lista de Treinos</h2>
+<h2 class="text-warning mb-4">Lista de Treinos</h2>
 
 <div class="mb-3">
-    <a asp-action="Create" class="btn btn-primary">Adicionar Novo Treino</a>
+    <a asp-action="Create" class="btn btn-warning"><i class="bi bi-plus-circle"></i>Adicionar Novo Treino</a>
 </div>
 
 <div class="row">
@@ -30,7 +28,7 @@
                 <div class="card-body">
                     <p class="card-text">@treino.Descricao</p>
                     <p><strong>Aluno:</strong> @treino.Aluno?.UserName</p>
-                    <div class="d-flex justify-content-between">
+                    <div class="d-flex flex-wrap gap-2 mt-3">
                         <a asp-action="Details" asp-route-id="@treino.TreinoID" class="btn btn-info btn-sm"><i class="bi bi-info-circle"></i> Detalhes</a>
                         <a asp-action="Edit" asp-route-id="@treino.TreinoID" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Editar</a>
                         <a asp-action="Delete" asp-route-id="@treino.TreinoID" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Excluir</a>

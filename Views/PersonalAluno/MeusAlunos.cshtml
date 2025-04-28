@@ -25,7 +25,7 @@
                     <p class="card-text"><strong>Treinos:</strong> @(aluno.Treinos?.Count() ?? 0)</p>
 
                     <div class="d-flex flex-wrap gap-2 mt-3">
-                        <a  asp-controller="PersonalAluno"  asp-action="TreinoAtual" asp-route-id="@aluno.Id" class="btn btn-warning text-dark fw-bold">
+                        <a  asp-controller="PersonalAluno"  asp-action="TreinosAtuais" asp-route-id="@aluno.Id" class="btn btn-warning text-dark fw-bold">
                             <i class="bi bi-clipboard-check-fill"></i> Ver Treino
                         </a>
                         <a asp-action="DetailsAluno" asp-route-id="@aluno.Id" class="btn btn-secondary">

@@ -3,9 +3,8 @@
 @{
     ViewData["Title"] = "Alunos";
 }
-<br />
-<br />
-<h2>Alunos</h2>
+
+<h2 class="text-warning mb-4">Alunos</h2>
 @if (TempData["Mensagem"] != null)
 {
     <div class="alert alert-warning">
@@ -14,7 +13,8 @@
 }
 
 <p>
-    <a asp-action="CreateAluno" class="btn btn-primary">Novo Aluno</a>
+    <a asp-action="CreateAluno" class="btn btn-warning">        <i class="bi bi-plus-circle"></i>Criar Novo Aluno    </a>        
+
 </p>
 
 <table class="table">

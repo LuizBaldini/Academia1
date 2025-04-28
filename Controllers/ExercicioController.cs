@@ -21,9 +21,13 @@ namespace Academia1.Controllers
 
         public async Task<IActionResult> Details(int id)
         {
-            var treino = _context.Exercicios.Include(e => e.Treinos).FirstOrDefault(e => e.ExercicioID == id);
-            return View(treino);
+            var exercicio = await _context.Exercicios.FindAsync(id);
+
+
+            return View(exercicio);
         }
+
+
 
         public IActionResult Create()
         {            

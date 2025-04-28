@@ -24,7 +24,7 @@ namespace Academia1.Controllers
 
             if (usuarioLogado is not Personal personal)
             {
-                return NotFound(); 
+                return NotFound();
             }
 
             return View(personal);
@@ -150,7 +150,7 @@ namespace Academia1.Controllers
                 if (personal.Alunos.Any())
                 {
                     TempData["Mensagem"] = "Não é possível excluir o personal enquanto houver alunos associados.";
-                    return RedirectToAction("Index");
+                    return RedirectToAction("PersonaisAcademia");
                 }
 
                 // Se não houver alunos associados, pode prosseguir com a exclusão
@@ -170,7 +170,22 @@ namespace Academia1.Controllers
                 TempData["Mensagem"] = $"Erro ao excluir o personal. Detalhes: {ex.Message}";
             }
 
-            return RedirectToAction("Index");
+            return RedirectToAction("PersonaisAcademia");
+        }
+        public async Task<IActionResult> PersonaisAcademia()
+        {
+            var personais = await _userManager.Users.OfType<Personal>().ToListAsync();
+
+            return View(personais);
+        }
+        public async Task<IActionResult> DetailsPersonal(string id)
+        {
+            var personal = await _userManager.Users
+                .OfType<Personal>()
+                .Include(p => p.Alunos)
+                .Include(p => p.Treinos)
+                .FirstOrDefaultAsync(p => p.Id == id);
+            return View(personal);
         }
     }
 }

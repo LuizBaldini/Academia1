@@ -1,36 +1,35 @@
 ﻿@model Academia1.Models.Exercicio
 
-@{
-    ViewData["Title"] = "Details";
-}
+<h2 class="text-warning mb-4">Detalhes do exercicio</h2>
 
-<h1>Details</h1>
-
-<div>
+<div class="text-white">
     <h4>Exercicio</h4>
-    <hr />
+    <hr class="border-warning" />
     <dl class="row">
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 text-warning">
             @Html.DisplayNameFor(model => model.Nome)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 text-black">
             @Html.DisplayFor(model => model.Nome)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 text-warning">
             @Html.DisplayNameFor(model => model.Categoria)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 text-black">
             @Html.DisplayFor(model => model.Categoria)
         </dd>
-        <dt class = "col-sm-2">
+        <dt class="col-sm-2 text-warning">
             @Html.DisplayNameFor(model => model.Descricao)
         </dt>
-        <dd class = "col-sm-10">
+        <dd class="col-sm-10 text-black">
             @Html.DisplayFor(model => model.Descricao)
         </dd>
     </dl>
 </div>
-<div>
-    <a asp-action="Edit" asp-route-id="@Model?.ExercicioID">Edit</a> |
-    <a asp-action="Index">Back to List</a>
+
+
+
+<div class="text-center mt-3">
+    <a asp-action="Edit" asp-route-id="@Model?.ExercicioID" class="btn btn-warning">Editar </a> |
+    <a asp-action="Index" class="btn btn-dark text-warning">Voltar aos Exercicios</a>
 </div>

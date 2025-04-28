@@ -1,11 +1,8 @@
 ﻿@model IEnumerable<Academia1.Models.Exercicio>
 
 @{
-    ViewData["Title"] = "Lista de Exercicios";
+    ViewData["Title"] = "Lista de Exercícios";
 }
-<br />
-<br />
-<h1>Index</h1>
 @if (TempData["Mensagem"] != null)
 {
     <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -14,42 +11,32 @@
     </div>
 }
 
-<p>
-    <a asp-action="Create">Create New</a>
-</p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Nome)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Categoria)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Descricao)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
-    <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Nome)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Categoria)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Descricao)
-            </td>
-            <td>
-                <a asp-action="Edit" asp-route-id="@item.ExercicioID">Edit</a> |
-                <a asp-action="Details" asp-route-id="@item.ExercicioID">Details</a> |
-                <a asp-action="Delete" asp-route-id="@item.ExercicioID">Delete</a>
-            </td>
-        </tr>
-}
-    </tbody>
-</table>
+<h2 class="text-warning mb-4">Lista de Exercícios</h2>
+
+<div class="container mt-4">
+    <div class="mb-4">
+        <a asp-action="Create" class="btn btn-warning"><i class="bi bi-plus-circle"></i> Criar Novo Exercício</a>
+    </div>
+    <div class="row">
+        @foreach (var item in Model)
+        {
+            <div class="col-md-4 mb-3">
+                <div class="card text-white bg-dark h-100">
+                    <div class="card-header text-center">
+                        <h5>@item.Nome</h5>
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Categoria:</strong> @item.Categoria</p>
+                        <p><strong>Descrição:</strong> @item.Descricao</p>
+                    </div>
+                    <div class="card-footer text-center">
+                        <a asp-action="Details" asp-route-id="@item.ExercicioID" class="btn btn-info btn-sm"><i class="bi bi-info-circle"></i> Detalhes</a>
+                        <a asp-action="Edit" asp-route-id="@item.ExercicioID" class="btn btn-warning btn-sm"><i class="bi bi-pencil"></i> Editar</a>
+                        <a asp-action="Delete" asp-route-id="@item.ExercicioID" class="btn btn-danger btn-sm"><i class="bi bi-trash"></i> Excluir</a>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

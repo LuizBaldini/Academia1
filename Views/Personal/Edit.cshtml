@@ -1,11 +1,11 @@
 ﻿@model Academia1.Models.Personal
 
 @{
-    var corFundo = "#000000"; // Preto
-    var corBotao = "#FFD700"; // Amarelo
+    ViewData["Title"] = "Meu perfil";
 }
 
-<h2 class="text-center text-warning">Editar Perfil</h2>
+
+<h2 class="text-warning mb-4">Editar Perfil</h2>
 
 <div class="container">
     <div class="card shadow-lg mb-4" style="border-radius: 10px;">
@@ -50,10 +50,11 @@
                     <input type="password" class="form-control" id="novaSenha" name="novaSenha" placeholder="Digite a nova senha" />
                 </div>
 
-                <button type="submit" class="btn" style="background-color: @corBotao; color: black;">
+                <button type="submit" class="btn">
                     <i class="bi bi-save"></i> Salvar Alterações
                 </button>
             </form>
+            
         </div>
     </div>
 </div>

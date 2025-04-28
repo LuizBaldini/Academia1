@@ -7,6 +7,9 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Academia.styles.css" asp-append-version="true" />
+
+    <link rel="icon" type="image/png" href="~/favicon.ico" asp-append-version="true" />
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 
     <!-- Bootstrap CSS -->
@@ -40,7 +43,11 @@
                                     <a class="nav-link" asp-controller="Treino" asp-action="Index"><i class="bi bi-calendar-check"></i> Treinos</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Exercicio" asp-action="Index"><i class="bi bi-fitness"></i> Exercícios</a>
+                                    <a class="nav-link" asp-controller="Exercicio" asp-action="Index"><i class="bi bi-dumbbell"></i> Exercícios</a>
+                                </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" asp-controller="Personal" asp-action="PersonaisAcademia"><i class="bi bi-person-badge"></i>Personais cadastrados</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Personal" asp-action="Perfil"><i class="bi bi-person-circle"></i> Perfil</a>
