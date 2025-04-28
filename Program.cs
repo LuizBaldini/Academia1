@@ -4,7 +4,7 @@ using Academia1.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Configuração do Entity Framework e conexão com banco de dados
+// Configuração do Entity Framework e conexão com banco de dadoss
 builder.Services.AddDbContext<Context>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
         sqlOptions => sqlOptions.EnableRetryOnFailure(
