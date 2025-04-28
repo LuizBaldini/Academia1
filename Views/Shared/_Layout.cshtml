@@ -4,6 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - Academia</title>
+
+    <!-- Referência ao Bootstrap -->
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Academia.styles.css" asp-append-version="true" />
@@ -11,12 +13,6 @@
     <link rel="icon" type="image/png" href="~/favicon.ico" asp-append-version="true" />
 
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
-
-    <!-- Bootstrap CSS -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-
-    <!-- Bootstrap Icons -->
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 </head>
 <body>
     <header>
@@ -52,12 +48,12 @@
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Personal" asp-action="Perfil"><i class="bi bi-person-circle"></i> Perfil</a>
                                 </li>
-                            }                            
+                            }
                             else
-                            if (User.IsInRole("Aluno"))
+                           if (User.IsInRole("Aluno"))
                             {
                                 <li class="nav-item">
-                                    <a class="nav-link" asp-controller="Aluno" asp-action="MeusTreinos"><i class="bi bi-journal-text"></i> Meus Treinos</a>
+                                    <a class="nav-link" asp-controller="Aluno" asp-action="Index"><i class="bi bi-journal-text"></i> Meus Treinos</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="nav-link" asp-controller="Aluno" asp-action="Perfil"><i class="bi bi-person-circle"></i> Perfil</a>
@@ -93,7 +89,6 @@
             <p class="text-light">&copy; 2025 - Academia1 | <a asp-controller="Home" asp-action="Privacy" class="text-warning">Privacidade</a></p>
         </div>
     </footer>
-
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

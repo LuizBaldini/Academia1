@@ -1,0 +1,46 @@
+﻿@model IEnumerable<Academia1.Models.Treino>
+
+@{
+    ViewData["Title"] = "Meus Treinos";
+}
+
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Mensagem"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<h2 class="text-warning mb-4">Meus Treinos</h2>
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    @foreach (var treino in Model)
+    {
+        <div class="col">
+            <div class="card shadow bg-dark text-white border-warning">
+                <div class="card-body">
+                    <h5 class="card-title text-warning">@treino.NomeTreino</h5>
+                    <p class="card-text">
+                        <strong>Descrição:</strong> @treino.Descricao
+                    </p>
+                    <p class="card-text">
+                        <strong>Data:</strong> @treino.Data.ToString("dd/MM/yyyy")
+                    </p>
+                    <p class="card-text">
+                        <strong>Hora:</strong> @treino.Hora
+                    </p>
+                    <p class="card-text">
+                        <strong>Personal:</strong> @treino.Personal?.UserName
+                    </p>
+
+                    <div class="d-flex flex-wrap gap-2 mt-3">
+                        <a asp-action="DetalhesTreino" asp-route-id="@treino.TreinoID" class="btn btn-warning text-dark fw-bold">
+                            <i class="bi bi-eye-fill"></i> Ver Detalhes
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+</div>

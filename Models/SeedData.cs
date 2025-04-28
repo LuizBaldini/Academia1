@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Academia1.Models;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
 
 namespace Academia1.Models
 {
@@ -64,7 +63,6 @@ namespace Academia1.Models
 
                 for (int i = 1; i <= 10; i++)
                 {
-                    // Gerando nomes aleatórios para os alunos
                     var nome = $"{nomes[i % nomes.Count]} {sobrenomes[i % sobrenomes.Count]}";
 
                     var aluno = new Aluno
@@ -93,36 +91,99 @@ namespace Academia1.Models
                 }
             }
 
-            //// Criação de Exercícios
-            //if (!context.Exercicios.Any())
-            //{
-            //    var exercicios = new List<Exercicio>
-            //    {
-            //        new Exercicio { Nome = "Flexão de Braços", Categoria = "Peito", Descricao = "Exercício clássico para trabalhar o peito e tríceps." },
-            //        new Exercicio { Nome = "Agachamento", Categoria = "Pernas", Descricao = "Exercício fundamental para o fortalecimento das pernas e glúteos." },
-            //        new Exercicio { Nome = "Supino", Categoria = "Peito", Descricao = "Exercício de musculação para trabalhar o peito, ombro e tríceps." },
-            //        new Exercicio { Nome = "Puxada na Barra", Categoria = "Costas", Descricao = "Exercício que visa trabalhar os músculos das costas, principalmente o latíssimo do dorso." },
-            //        new Exercicio { Nome = "Rosca Direta", Categoria = "Braços", Descricao = "Exercício de musculação focado no bíceps." },
-            //        new Exercicio { Nome = "Leg Press", Categoria = "Pernas", Descricao = "Exercício de fortalecimento das pernas e glúteos, realizado em uma máquina." },
-            //        new Exercicio { Nome = "Abdominal", Categoria = "Core", Descricao = "Exercício que visa trabalhar a região do abdômen." },
-            //        new Exercicio { Nome = "Stiff", Categoria = "Pernas", Descricao = "Exercício que trabalha os músculos posteriores da coxa e glúteos." },
-            //        new Exercicio { Nome = "Cadeira Extensora", Categoria = "Pernas", Descricao = "Exercício que foca no fortalecimento do quadríceps." },
-            //        new Exercicio { Nome = "Tríceps Pulley", Categoria = "Braços", Descricao = "Exercício de musculação para fortalecer o tríceps." },
-            //        new Exercicio { Nome = "Desenvolvimento de Ombros", Categoria = "Ombros", Descricao = "Exercício para trabalhar os músculos dos ombros." },
-            //        new Exercicio { Nome = "Deadlift", Categoria = "Costas", Descricao = "Exercício que foca no fortalecimento das costas e posterior de coxa." },
-            //        new Exercicio { Nome = "Puxada Frente", Categoria = "Costas", Descricao = "Exercício para trabalhar o latíssimo do dorso com puxada de barra." },
-            //        new Exercicio { Nome = "Peck Deck", Categoria = "Peito", Descricao = "Exercício para isolar os músculos do peito." },
-            //        new Exercicio { Nome = "Panturrilha em Pé", Categoria = "Pernas", Descricao = "Exercício que trabalha a musculatura da panturrilha." },
-            //        new Exercicio { Nome = "Pull-up", Categoria = "Costas", Descricao = "Exercício de puxada para as costas, também trabalha o bíceps." },
-            //        new Exercicio { Nome = "Dumbbell Curl", Categoria = "Braços", Descricao = "Exercício de rosca direta utilizando halteres." },
-            //        new Exercicio { Nome = "Chest Fly", Categoria = "Peito", Descricao = "Exercício de peito com halteres, trabalhando o peitoral maior." },
-            //        new Exercicio { Nome = "Glúteo 4 Apoios", Categoria = "Glúteos", Descricao = "Exercício específico para glúteos e pernas." },
-            //        new Exercicio { Nome = "Mergulho", Categoria = "Braços", Descricao = "Exercício para trabalhar tríceps, peitoral e ombros." }
-            //    };
-            //    await context.Exercicios.AddRangeAsync(exercicios);
-            //    await context.SaveChangesAsync();
-            //}
+            // Criação de Exercícios
+            if (!context.Exercicios.Any())
+            {
+                var exercicios = new List<Exercicio>
+                {
+                    new Exercicio { Nome = "Flexão de Braços", Categoria = "Peito", Descricao = "Exercício clássico para trabalhar o peito e tríceps." },
+                    new Exercicio { Nome = "Agachamento", Categoria = "Pernas", Descricao = "Exercício fundamental para o fortalecimento das pernas e glúteos." },
+                    new Exercicio { Nome = "Supino", Categoria = "Peito", Descricao = "Exercício de musculação para trabalhar o peito, ombro e tríceps." },
+                    new Exercicio { Nome = "Puxada na Barra", Categoria = "Costas", Descricao = "Exercício que visa trabalhar os músculos das costas, principalmente o latíssimo do dorso." },
+                    new Exercicio { Nome = "Rosca Direta", Categoria = "Braços", Descricao = "Exercício de musculação focado no bíceps." },
+                    new Exercicio { Nome = "Leg Press", Categoria = "Pernas", Descricao = "Exercício de fortalecimento das pernas e glúteos, realizado em uma máquina." },
+                    new Exercicio { Nome = "Abdominal", Categoria = "Core", Descricao = "Exercício que visa trabalhar a região do abdômen." },
+                    new Exercicio { Nome = "Stiff", Categoria = "Pernas", Descricao = "Exercício que trabalha os músculos posteriores da coxa e glúteos." },
+                    new Exercicio { Nome = "Cadeira Extensora", Categoria = "Pernas", Descricao = "Exercício que foca no fortalecimento do quadríceps." },
+                    new Exercicio { Nome = "Tríceps Pulley", Categoria = "Braços", Descricao = "Exercício de musculação para fortalecer o tríceps." },
+                    new Exercicio { Nome = "Desenvolvimento de Ombros", Categoria = "Ombros", Descricao = "Exercício para trabalhar os músculos dos ombros." },
+                    new Exercicio { Nome = "Deadlift", Categoria = "Costas", Descricao = "Exercício que foca no fortalecimento das costas e posterior de coxa." },
+                    new Exercicio { Nome = "Puxada Frente", Categoria = "Costas", Descricao = "Exercício para trabalhar o latíssimo do dorso com puxada de barra." },
+                    new Exercicio { Nome = "Peck Deck", Categoria = "Peito", Descricao = "Exercício para isolar os músculos do peito." },
+                    new Exercicio { Nome = "Panturrilha em Pé", Categoria = "Pernas", Descricao = "Exercício que trabalha a musculatura da panturrilha." },
+                    new Exercicio { Nome = "Pull-up", Categoria = "Costas", Descricao = "Exercício de puxada para as costas, também trabalha o bíceps." },
+                    new Exercicio { Nome = "Dumbbell Curl", Categoria = "Braços", Descricao = "Exercício de rosca direta utilizando halteres." },
+                    new Exercicio { Nome = "Chest Fly", Categoria = "Peito", Descricao = "Exercício de peito com halteres, trabalhando o peitoral maior." },
+                    new Exercicio { Nome = "Glúteo 4 Apoios", Categoria = "Glúteos", Descricao = "Exercício específico para glúteos e pernas." },
+                    new Exercicio { Nome = "Mergulho", Categoria = "Braços", Descricao = "Exercício para trabalhar tríceps, peitoral e ombros." }
+                };
+                await context.Exercicios.AddRangeAsync(exercicios);
+                await context.SaveChangesAsync();
+            }
+
+            // Criação de Treinos por categoria
+            if (!context.Treinos.Any())
+            {
+                var alunos = await context.Users.OfType<Aluno>().ToListAsync();
+                var random = new Random();
+
+                foreach (var aluno in alunos)
+                {
+                    // peito
+                    var treinoPeito = new Treino
+                    {
+                        NomeTreino = $"Treino de Peito - {aluno.UserName}",
+                        Descricao = "Treino focado no peito.",
+                        Data = DateTime.Today.AddDays(random.Next(1, 7)),
+                        Hora = DateTime.Today.AddHours(random.Next(6, 10)).AddMinutes(random.Next(0, 60)),
+                        AlunoID = aluno.Id,
+                        PersonalID = personal.Id,
+                        Exercicios = context.Exercicios.Where(e => e.Categoria == "Peito").OrderBy(x => Guid.NewGuid()).Take(4).ToList()
+                    };
+                    await context.Treinos.AddAsync(treinoPeito);
+
+                    // pernas
+                    var treinoPernas = new Treino
+                    {
+                        NomeTreino = $"Treino de Pernas - {aluno.UserName}",
+                        Descricao = "Treino focado nas pernas.",
+                        Data = DateTime.Today.AddDays(random.Next(1, 7)),
+                        Hora = DateTime.Today.AddHours(random.Next(6, 10)).AddMinutes(random.Next(0, 60)),
+                        AlunoID = aluno.Id,
+                        PersonalID = personal.Id,
+                        Exercicios = context.Exercicios.Where(e => e.Categoria == "Pernas").OrderBy(x => Guid.NewGuid()).Take(4).ToList()
+                    };
+                    await context.Treinos.AddAsync(treinoPernas);
+
+                    // braços
+                    var treinoBracos = new Treino
+                    {
+                        NomeTreino = $"Treino de Braços - {aluno.UserName}",
+                        Descricao = "Treino focado nos braços.",
+                        Data = DateTime.Today.AddDays(random.Next(1, 7)),
+                        Hora = DateTime.Today.AddHours(random.Next(6, 10)).AddMinutes(random.Next(0, 60)),
+                        AlunoID = aluno.Id,
+                        PersonalID = personal.Id,
+                        Exercicios = context.Exercicios.Where(e => e.Categoria == "Braços").OrderBy(x => Guid.NewGuid()).Take(4).ToList()
+                    };
+                    await context.Treinos.AddAsync(treinoBracos);
+
+                    // costas
+                    var treinoCostas = new Treino
+                    {
+                        NomeTreino = $"Treino de Costas - {aluno.UserName}",
+                        Descricao = "Treino focado nas costas.",
+                        Data = DateTime.Today.AddDays(random.Next(1, 7)),
+                        Hora = DateTime.Today.AddHours(random.Next(6, 10)).AddMinutes(random.Next(0, 60)),
+                        AlunoID = aluno.Id,
+                        PersonalID = personal.Id,
+                        Exercicios = context.Exercicios.Where(e => e.Categoria == "Costas").OrderBy(x => Guid.NewGuid()).Take(4).ToList()
+                    };
+                    await context.Treinos.AddAsync(treinoCostas);
+                }
+
+                await context.SaveChangesAsync();
+            }
         }
     }
 }
-

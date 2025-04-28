@@ -35,6 +35,7 @@ public class AccountController : Controller
             else if (User.IsInRole("Aluno"))
             {
                 return RedirectToAction("Index", "Aluno");
+
             }
             else
             {
@@ -70,6 +71,7 @@ public class AccountController : Controller
                 else if (user is Aluno)
                 {
                     return RedirectToAction("Index", "Aluno");
+
                 }
             }
             else

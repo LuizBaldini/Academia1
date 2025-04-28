@@ -1,0 +1,48 @@
+﻿@model Academia1.Models.Aluno
+
+@{
+    ViewData["Title"] = "Editar Aluno";
+}
+
+<h2>Editar Dados do Aluno</h2>
+
+@if (TempData["Mensagem"] != null)
+{
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        @TempData["Mensagem"]
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+}
+
+<form asp-action="Editar" method="post">
+    @Html.AntiForgeryToken()
+
+    <div class="mb-3">
+        <label for="Email" class="form-label">Email</label>
+        <input type="email" class="form-control" id="Email" name="Email" value="@Model.Email" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="PhoneNumber" class="form-label">Telefone</label>
+        <input type="text" class="form-control" id="PhoneNumber" name="PhoneNumber" value="@Model.PhoneNumber" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Instagram" class="form-label">Instagram</label>
+        <input type="text" class="form-control" id="Instagram" name="Instagram" value="@Model.Instagram" />
+    </div>
+
+    <div class="mb-3">
+        <label for="Data_Nascimento" class="form-label">Data de Nascimento</label>
+        <input type="date" class="form-control" id="Data_Nascimento" name="Data_Nascimento" value="@Model.Data_Nascimento.ToString("yyyy-MM-dd")" required />
+    </div>
+
+    <div class="mb-3">
+        <label for="Observacoes" class="form-label">Observações</label>
+        <textarea class="form-control" id="Observacoes" name="Observacoes">@Model.Observacoes</textarea>
+    </div>
+
+    <button type="submit" class="btn btn-warning">Salvar Alterações</button>
+</form>
+
+<a asp-action="Perfil" class="btn btn-secondary mt-3">Voltar</a>

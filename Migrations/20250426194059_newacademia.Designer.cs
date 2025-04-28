@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Academia1.Migrations
 {
     [DbContext(typeof(Context))]
-    [Migration("20250409192038_AddDiscriminatorToAspNetUsers")]
-    partial class AddDiscriminatorToAspNetUsers
+    [Migration("20250426194059_newacademia")]
+    partial class newacademia
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -25,7 +25,7 @@ namespace Academia1.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("Academia.Models.Exercicio", b =>
+            modelBuilder.Entity("Academia1.Models.Exercicio", b =>
                 {
                     b.Property<int>("ExercicioID")
                         .ValueGeneratedOnAdd()
@@ -50,7 +50,7 @@ namespace Academia1.Migrations
                     b.ToTable("Exercicios");
                 });
 
-            modelBuilder.Entity("Academia.Models.Treino", b =>
+            modelBuilder.Entity("Academia1.Models.Treino", b =>
                 {
                     b.Property<int>("TreinoID")
                         .ValueGeneratedOnAdd()
@@ -324,7 +324,7 @@ namespace Academia1.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Academia.Models.Aluno", b =>
+            modelBuilder.Entity("Academia1.Models.Aluno", b =>
                 {
                     b.HasBaseType("Academia1.Models.Usuario");
 
@@ -337,27 +337,26 @@ namespace Academia1.Migrations
                     b.HasDiscriminator().HasValue("Aluno");
                 });
 
-            modelBuilder.Entity("Academia.Models.Personal", b =>
+            modelBuilder.Entity("Academia1.Models.Personal", b =>
                 {
                     b.HasBaseType("Academia1.Models.Usuario");
 
                     b.Property<string>("Especialidade")
                         .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("nvarchar(100)");
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasDiscriminator().HasValue("Personal");
                 });
 
-            modelBuilder.Entity("Academia.Models.Treino", b =>
+            modelBuilder.Entity("Academia1.Models.Treino", b =>
                 {
-                    b.HasOne("Academia.Models.Aluno", "Aluno")
+                    b.HasOne("Academia1.Models.Aluno", "Aluno")
                         .WithMany("Treinos")
                         .HasForeignKey("AlunoID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("Academia.Models.Personal", "Personal")
+                    b.HasOne("Academia1.Models.Personal", "Personal")
                         .WithMany("Treinos")
                         .HasForeignKey("PersonalID")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -370,13 +369,13 @@ namespace Academia1.Migrations
 
             modelBuilder.Entity("ExercicioTreino", b =>
                 {
-                    b.HasOne("Academia.Models.Exercicio", null)
+                    b.HasOne("Academia1.Models.Exercicio", null)
                         .WithMany()
                         .HasForeignKey("ExerciciosExercicioID")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Academia.Models.Treino", null)
+                    b.HasOne("Academia1.Models.Treino", null)
                         .WithMany()
                         .HasForeignKey("TreinosTreinoID")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -434,9 +433,9 @@ namespace Academia1.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("Academia.Models.Aluno", b =>
+            modelBuilder.Entity("Academia1.Models.Aluno", b =>
                 {
-                    b.HasOne("Academia.Models.Personal", "Personal")
+                    b.HasOne("Academia1.Models.Personal", "Personal")
                         .WithMany("Alunos")
                         .HasForeignKey("PersonalID")
                         .OnDelete(DeleteBehavior.Restrict)
@@ -445,12 +444,12 @@ namespace Academia1.Migrations
                     b.Navigation("Personal");
                 });
 
-            modelBuilder.Entity("Academia.Models.Aluno", b =>
+            modelBuilder.Entity("Academia1.Models.Aluno", b =>
                 {
                     b.Navigation("Treinos");
                 });
 
-            modelBuilder.Entity("Academia.Models.Personal", b =>
+            modelBuilder.Entity("Academia1.Models.Personal", b =>
                 {
                     b.Navigation("Alunos");
 
