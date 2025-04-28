@@ -43,8 +43,7 @@ namespace Academia1.Controllers
                 var result = await _userManager.CreateAsync(personal, senha);
 
                 if (result.Succeeded)
-                {
-                    // Adiciona o usuário à role "Aluno"
+                {                    
                     await _userManager.AddToRoleAsync(personal, "Personal");
                     TempData["Mensagem"] = "Personal cadastrado com sucesso";
                     return RedirectToAction("PersonaisAcademia");
